@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siraj Collection - Trendy Artificial Jewelry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-wide text-rose-600">Siraj Collection</h1>
+            <nav class="hidden md:flex space-x-6 font-medium">
+                <a href="#products" class="hover:text-rose-600">Products</a>
+                <a href="#contact" class="hover:text-rose-600">Contact</a>
+            </nav>
+            <div>
+                <a href="https://wa.me/91XXXXXXXXXX" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition">
+                    WhatsApp Support
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-rose-50 py-16 px-4 text-center">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl font-extrabold text-gray-800 mb-4">Elevate Your Style with Exquisite Jewelry</h2>
+            <p class="text-lg text-gray-600 mb-8">Discover trendy, elegant, and pocket-friendly artificial jewelry and choker sets.</p>
+            <a href="#products" class="bg-rose-600 text-white px-8 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-rose-700 transition">Shop Collection</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="max-w-7xl mx-auto px-4 py-12">
+        <h3 class="text-2xl font-bold text-center mb-8">Featured Products</h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            
+            <!-- Product Card 1 -->
+            <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=500&q=80" alt="Jewelry" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-lg mb-1">Peacock Motif Choker Set</h4>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-rose-600 font-bold text-xl">₹499</span>
+                            <span class="text-gray-400 line-through text-sm">₹999</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 pt-0">
+                    <button onclick="openCheckout('Peacock Motif Choker Set', '₹499')" class="w-full bg-rose-600 text-white py-2 rounded-lg font-medium hover:bg-rose-700 transition">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=500&q=80" alt="Jewelry" class="w-full h-64 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-lg mb-1">Korean Style Earrings</h4>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-rose-600 font-bold text-xl">₹249</span>
+                            <span class="text-gray-400 line-through text-sm">₹499</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 pt-0">
+                    <button onclick="openCheckout('Korean Style Earrings', '₹249')" class="w-full bg-rose-600 text-white py-2 rounded-lg font-medium hover:bg-rose-700 transition">
+                        Buy Now
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Checkout Modal (Meesho Address Style) -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+            
+            <h3 class="text-xl font-bold mb-1 text-gray-800">Enter Delivery Address</h3>
+            <p id="selectedProductText" class="text-sm text-rose-600 font-medium mb-4"></p>
+
+            <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Name *</label>
+                        <input type="text" id="custName" required placeholder="Enter a correct name" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Contact Number *</label>
+                        <input type="tel" id="custPhone" required placeholder="Enter mobile number" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">House no. / Building Name *</label>
+                    <input type="text" id="custHouse" required placeholder="Enter house no. or nearest building/road" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Road Name / Area / Colony *</label>
+                    <input type="text" id="custArea" required placeholder="Enter road, area, village/city, post office name" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1">Pincode *</label>
+                    <input type="text" id="custPincode" required maxlength="6" placeholder="Enter 6 digit Pincode" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">City *</label>
+                        <input type="text" id="custCity" required placeholder="Enter your city" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">State *</label>
+                        <input type="text" id="custState" required value="West Bengal" class="w-full border rounded-lg px-3 py-2 text-sm bg-gray-100 text-gray-700" readonly>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-purple-700 text-white py-3 rounded-lg font-semibold hover:bg-purple-800 transition mt-4">
+                    Place Order via WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-16 py-6 text-center text-gray-500 text-sm">
+        <p>&copy; 2026 Siraj Collection. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for Modal & WhatsApp Order Generation -->
+    <script>
+        let currentProduct = "";
+        let currentPrice = "";
+
+        function openCheckout(productName, price) {
+            currentProduct = productName;
+            currentPrice = price;
+            document.getElementById('selectedProductText').innerText = productName + " (" + price + ")";
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+        }
+
+        function submitOrder(event) {
+            event.preventDefault();
+            
+            let name = document.getElementById('custName').value;
+            let phone = document.getElementById('custPhone').value;
+            let house = document.getElementById('custHouse').value;
+            let area = document.getElementById('custArea').value;
+            let pincode = document.getElementById('custPincode').value;
+            let city = document.getElementById('custCity').value;
+            let state = document.getElementById('custState').value;
+
+            let message = `New Order Received!%0a%0a*Product:* ${currentProduct} (${currentPrice})%0a%0a*Customer Details:*%0a- *Name:* ${name}%0a- *Phone:* ${phone}%0a- *House/Building:* ${house}%0a- *Area:* ${area}%0a- *Pincode:* ${pincode}%0a- *City:* ${city}%0a- *State:* ${state}`;
+
+            // Apka WhatsApp Number yahan replace karein (e.g., 919876543210)
+            let whatsappNumber = "919883998097"; 
+
+            let url = `https://wa.me/${whatsappNumber}?text=${message}`;
+            window.open(url, '_blank');
+        }
+    </script>
+
+</body>
+  </html>
+
