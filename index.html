@@ -38,50 +38,13 @@
     <section id="products" class="max-w-7xl mx-auto px-4 py-12">
         <h3 class="text-2xl font-bold text-center mb-8">Featured Products</h3>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            
-            <!-- Product Card 1 -->
-            <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
-                <div>
-                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=500&q=80" alt="Jewelry" class="w-full h-64 object-cover">
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-1">Peacock Motif Choker Set</h4>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-rose-600 font-bold text-xl">₹499</span>
-                            <span class="text-gray-400 line-through text-sm">₹999</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-4 pt-0">
-                    <button onclick="openCheckout('Peacock Motif Choker Set', '₹499')" class="w-full bg-rose-600 text-white py-2 rounded-lg font-medium hover:bg-rose-700 transition">
-                        Buy Now
-                    </button>
-                </div>
-            </div>
-
-            <!-- Product Card 2 -->
-            <div class="bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between">
-                <div>
-                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=500&q=80" alt="Jewelry" class="w-full h-64 object-cover">
-                    <div class="p-4">
-                        <h4 class="font-semibold text-lg mb-1">Korean Style Earrings</h4>
-                        <div class="flex items-center justify-between mb-4">
-                            <span class="text-rose-600 font-bold text-xl">₹249</span>
-                            <span class="text-gray-400 line-through text-sm">₹499</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-4 pt-0">
-                    <button onclick="openCheckout('Korean Style Earrings', '₹249')" class="w-full bg-rose-600 text-white py-2 rounded-lg font-medium hover:bg-rose-700 transition">
-                        Buy Now
-                    </button>
-                </div>
-            </div>
-
+        <!-- Dynamic Products Container -->
+        <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Products will load dynamically from products.json -->
         </div>
     </section>
 
-    <!-- Feedback / Contact Section (Formspree Integrated) -->
+    <!-- Feedback Section -->
     <section id="feedback" class="bg-white py-12 px-4 border-t">
         <div class="max-w-xl mx-auto bg-gray-50 p-8 rounded-2xl shadow-sm border">
             <h3 class="text-2xl font-bold text-center mb-2 text-gray-800">Send Us Your Feedback</h3>
@@ -161,10 +124,63 @@
         <p>&copy; 2026 Siraj Collection. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for Modal & WhatsApp Order Generation -->
+    <!-- JavaScript for JSON Fetching, Thumbnails & WhatsApp Order -->
     <script>
         let currentProduct = "";
         let currentPrice = "";
+
+        // Fetch products dynamically from products.json
+        fetch('products.json')
+            .then(response => response.json())
+            .then(products => {
+                const container = document.getElementById('product-container');
+                container.innerHTML = "";
+
+                products.forEach(product => {
+                    let thumbsHTML = '';
+                    if(product.images && product.images.length > 1) {
+                        product.images.forEach((img, index) => {
+                            thumbsHTML += `<img src="${img}" class="w-12 h-12 object-cover rounded-md cursor-pointer border-2 ${index === 0 ? 'border-rose-600' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
+                        });
+                    }
+
+                    let card = document.createElement('div');
+                    card.className = "bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between";
+                    card.innerHTML = `
+                        <div>
+                            <div class="relative">
+                                <img src="${product.images[0]}" id="main-img-${product.id}" class="w-full h-64 object-cover">
+                            </div>
+                            ${thumbsHTML ? `<div class="flex gap-2 p-2 bg-gray-50 overflow-x-auto border-b">${thumbsHTML}</div>` : ''}
+                            <div class="p-4">
+                                <h4 class="font-semibold text-lg mb-1">${product.name}</h4>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-rose-600 font-bold text-xl">${product.price}</span>
+                                    <span class="text-gray-400 line-through text-sm">${product.oldPrice}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0">
+                            <button onclick="openCheckout('${product.name}', '${product.price}')" class="w-full bg-rose-600 text-white py-2 rounded-lg font-medium hover:bg-rose-700 transition">
+                                Buy Now
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(error => console.error('Error loading products:', error));
+
+        function changeImage(element, productId, imgSrc) {
+            document.getElementById(`main-img-${productId}`).src = imgSrc;
+            let parent = element.parentElement;
+            parent.querySelectorAll('img').forEach(img => {
+                img.classList.remove('border-rose-600');
+                img.classList.add('border-transparent', 'opacity-60');
+            });
+            element.classList.remove('border-transparent', 'opacity-60');
+            element.classList.add('border-rose-600');
+        }
 
         function openCheckout(productName, price) {
             currentProduct = productName;
@@ -181,18 +197,16 @@
             event.preventDefault();
             
             let name = document.getElementById('custName').value;
-            let phone = document.getElementById('custPhone5').value || document.getElementById('custPhone').value;
+            let phoneVal = document.getElementById('custPhone').value;
             let house = document.getElementById('custHouse').value;
             let area = document.getElementById('custArea').value;
             let pincode = document.getElementById('custPincode').value;
             let city = document.getElementById('custCity').value;
             let state = document.getElementById('custState').value;
 
-            let phoneVal = document.getElementById('custPhone').value;
             let message = `New Order Received!%0a%0a*Product:* ${currentProduct} (${currentPrice})%0a%0a*Customer Details:*%0a- *Name:* ${name}%0a- *Phone:* ${phoneVal}%0a- *House/Building:* ${house}%0a- *Area:* ${area}%0a- *Pincode:* ${pincode}%0a- *City:* ${city}%0a- *State:* ${state}`;
 
             let whatsappNumber = "919883998097"; 
-
             let url = `https://wa.me/${whatsappNumber}?text=${message}`;
             window.open(url, '_blank');
         }
