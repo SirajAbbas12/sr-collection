@@ -44,6 +44,14 @@
         </div>
     </section>
 
+    <!-- Image Zoom Modal -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center p-4 z-50">
+        <div class="relative max-w-4xl w-full flex justify-center items-center">
+            <button onclick="closeImageModal()" class="absolute -top-10 right-0 text-white text-3xl font-bold hover:text-rose-400">&times;</button>
+            <img id="modalImg" src="" class="max-h-[85vh] max-w-full object-contain rounded-lg">
+        </div>
+    </div>
+
     <!-- Feedback Section -->
     <section id="feedback" class="bg-white py-12 px-4 border-t">
         <div class="max-w-xl mx-auto bg-gray-50 p-8 rounded-2xl shadow-sm border">
@@ -124,12 +132,11 @@
         <p>&copy; 2026 Siraj Collection. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for JSON Fetching, Details & WhatsApp Order -->
+    <!-- JavaScript for JSON Fetching, Image Zoom & WhatsApp Order -->
     <script>
         let currentProduct = "";
         let currentPrice = "";
 
-        // Fetch products dynamically from products.json
         fetch('products.json')
             .then(response => response.json())
             .then(products => {
@@ -148,8 +155,8 @@
                     card.className = "bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between";
                     card.innerHTML = `
                         <div>
-                            <div class="relative">
-                                <img src="${product.images[0]}" id="main-img-${product.id}" class="w-full h-64 object-cover">
+                            <div class="relative bg-gray-100">
+                                <img src="${product.images[0]}" id="main-img-${product.id}" class="w-full h-64 object-contain cursor-pointer" onclick="openImageModal('${product.images[0]}')" title="Click to zoom">
                             </div>
                             ${thumbsHTML ? `<div class="flex gap-2 p-2 bg-gray-50 overflow-x-auto border-b">${thumbsHTML}</div>` : ''}
                             <div class="p-4">
@@ -173,7 +180,10 @@
             .catch(error => console.error('Error loading products:', error));
 
         function changeImage(element, productId, imgSrc) {
-            document.getElementById(`main-img-${productId}`).src = imgSrc;
+            let mainImg = document.getElementById(`main-img-${productId}`);
+            mainImg.src = imgSrc;
+            mainImg.setAttribute('onclick', `openImageModal('${imgSrc}')`);
+            
             let parent = element.parentElement;
             parent.querySelectorAll('img').forEach(img => {
                 img.classList.remove('border-rose-600');
@@ -181,6 +191,15 @@
             });
             element.classList.remove('border-transparent', 'opacity-60');
             element.classList.add('border-rose-600');
+        }
+
+        function openImageModal(imgSrc) {
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('imageModal').classList.remove('hidden');
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.add('hidden');
         }
 
         function openCheckout(productName, price) {
