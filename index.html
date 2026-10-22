@@ -3,133 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siraj Collection - Trendy Artificial Jewelry</title>
+    <title>SR Collection - Exquisite Artificial Jewelry</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 font-sans text-gray-900">
+<body class="bg-gradient-to-br from-rose-50 via-white to-pink-50 font-sans text-gray-900 min-h-screen flex flex-col justify-between">
 
-    <!-- Header / Navbar -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-wide text-rose-600">Siraj Collection</h1>
-            <nav class="hidden md:flex space-x-6 font-medium">
-                <a href="#products" class="hover:text-rose-600">Products</a>
-                <a href="#feedback" class="hover:text-rose-600">Feedback</a>
-                <a href="#contact" class="hover:text-rose-600">Contact</a>
-            </nav>
-            <div>
-                <a href="https://wa.me/919883998097" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition">
-                    WhatsApp Support
+    <div>
+        <!-- Header / Navbar -->
+        <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-rose-100">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <h1 class="text-2xl font-extrabold tracking-wider text-rose-600 font-serif">SR Collection</h1>
+                </div>
+                <nav class="hidden md:flex space-x-6 font-medium text-sm text-gray-700">
+                    <a href="#products" class="hover:text-rose-600 transition">Collections</a>
+                    <a href="#upcoming" class="hover:text-rose-600 transition">Coming Soon</a>
+                    <a href="#feedback" class="hover:text-rose-600 transition">Feedback</a>
+                </nav>
+                <div>
+                    <a href="https://wa.me/919883998097" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm hover:bg-emerald-700 transition flex items-center gap-1">
+                        <span>💬 WhatsApp Support</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="py-16 px-4 text-center bg-gradient-to-r from-rose-100/60 via-pink-50/50 to-rose-50/60 border-b border-rose-100">
+            <div class="max-w-3xl mx-auto">
+                <span class="bg-rose-200 text-rose-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">✨ Elegant & Trendy</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 font-serif leading-tight">Elevate Your Style with Exquisite Jewelry</h2>
+                <p class="text-base md:text-lg text-gray-600 mb-8 font-light">Discover stunning, pocket-friendly artificial jewelry, choker sets, and traditional combos crafted for your special moments.</p>
+                <a href="#products" class="bg-rose-600 text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition inline-block">Explore Collection</a>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="max-w-7xl mx-auto px-4 py-12">
+            <div class="text-center mb-10">
+                <h3 class="text-3xl font-extrabold text-gray-800 font-serif">Featured Masterpieces</h3>
+                <p class="text-sm text-gray-500 mt-1">Handpicked designs to match your everyday and party elegance</p>
+            </div>
+            
+            <!-- Dynamic Products Container -->
+            <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Products will load dynamically from products.json -->
+            </div>
+        </section>
+
+        <!-- Coming Soon / Upcoming Collections Section -->
+        <section id="upcoming" class="max-w-7xl mx-auto px-4 py-12 border-t border-rose-100 my-8">
+            <div class="bg-gradient-to-r from-rose-900 to-pink-900 rounded-3xl p-8 md:p-12 text-white text-center shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-rose-600/20 rounded-full blur-2xl"></div>
+                <span class="bg-rose-500/30 text-rose-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block border border-rose-400/30">Exciting Reveal</span>
+                <h3 class="text-2xl md:text-4xl font-bold font-serif mb-3">New Wedding & Temple Jewelry Collections Coming Soon!</h3>
+                <p class="text-rose-100 text-sm md:text-base max-w-xl mx-auto mb-6 font-light">We are curating exclusive gold-finish choker sets and antique bridal collection for the upcoming festive season. Stay tuned!</p>
+                <a href="https://wa.me/919883998097?text=Hi%20SR%20Collection,%20I%20want%20to%20get%20updates%20on%20upcoming%20collections!" target="_blank" class="bg-white text-rose-900 px-6 py-3 rounded-xl font-bold text-sm shadow-md hover:bg-rose-50 transition inline-block">
+                    Get Notified on WhatsApp
                 </a>
             </div>
-        </div>
-    </header>
+        </section>
 
-    <!-- Hero Section -->
-    <section class="bg-rose-50 py-16 px-4 text-center">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-4xl font-extrabold text-gray-800 mb-4">Elevate Your Style with Exquisite Jewelry</h2>
-            <p class="text-lg text-gray-600 mb-8">Discover trendy, elegant, and pocket-friendly artificial jewelry and choker sets.</p>
-            <a href="#products" class="bg-rose-600 text-white px-8 py-3 rounded-lg font-semibold text-lg shadow-md hover:bg-rose-700 transition">Shop Collection</a>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="max-w-7xl mx-auto px-4 py-12">
-        <h3 class="text-2xl font-bold text-center mb-8">Featured Products</h3>
-        
-        <!-- Dynamic Products Container -->
-        <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Products will load dynamically from products.json -->
-        </div>
-    </section>
+        <!-- Feedback Section -->
+        <section id="feedback" class="bg-white/80 backdrop-blur-sm py-12 px-4 border-t border-rose-100">
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow-md border border-rose-100">
+                <h3 class="text-2xl font-bold text-center mb-2 text-gray-800 font-serif">We Value Your Feedback</h3>
+                <p class="text-sm text-gray-500 text-center mb-6">Have a query or suggestion? Drop your message below.</p>
+                
+                <form action="https://formspree.io/f/xljgqoae" method="POST" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Your Email *</label>
+                        <input type="email" name="email" required placeholder="Enter your email address" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Your Message *</label>
+                        <textarea name="message" rows="4" required placeholder="Write your feedback or query here..." class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-rose-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-rose-700 transition shadow-md shadow-rose-600/20">
+                        Send Feedback
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
 
     <!-- Image Zoom Modal -->
-    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-80 hidden flex items-center justify-center p-4 z-50">
+    <div id="imageModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
         <div class="relative max-w-4xl w-full flex justify-center items-center">
-            <button onclick="closeImageModal()" class="absolute -top-10 right-0 text-white text-3xl font-bold hover:text-rose-400">&times;</button>
-            <img id="modalImg" src="" class="max-h-[85vh] max-w-full object-contain rounded-lg">
+            <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white text-4xl font-light hover:text-rose-400 transition">&times;</button>
+            <img id="modalImg" src="" class="max-h-[85vh] max-w-full object-contain rounded-2xl shadow-2xl">
         </div>
     </div>
 
-    <!-- Feedback Section -->
-    <section id="feedback" class="bg-white py-12 px-4 border-t">
-        <div class="max-w-xl mx-auto bg-gray-50 p-8 rounded-2xl shadow-sm border">
-            <h3 class="text-2xl font-bold text-center mb-2 text-gray-800">Send Us Your Feedback</h3>
-            <p class="text-sm text-gray-600 text-center mb-6">We would love to hear from you! Drop your message below.</p>
-            
-            <form action="https://formspree.io/f/xljgqoae" method="POST" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-1">Your Email *</label>
-                    <input type="email" name="email" required placeholder="Enter your email address" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-1">Your Message *</label>
-                    <textarea name="message" rows="4" required placeholder="Write your feedback or query here..." class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-rose-600 text-white py-3 rounded-lg font-semibold hover:bg-rose-700 transition">
-                    Send Feedback
-                </button>
-            </form>
-        </div>
-    </section>
-
     <!-- Checkout Modal (Meesho Address Style) -->
-    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeCheckout()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
+    <div id="checkoutModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-rose-100">
+            <button onclick="closeCheckout()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 text-2xl font-light">&times;</button>
             
-            <h3 class="text-xl font-bold mb-1 text-gray-800">Enter Delivery Address</h3>
-            <p id="selectedProductText" class="text-sm text-rose-600 font-medium mb-4"></p>
+            <h3 class="text-xl font-bold mb-1 text-gray-800 font-serif">Enter Delivery Address</h3>
+            <p id="selectedProductText" class="text-sm text-rose-600 font-semibold mb-6"></p>
 
             <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-600 mb-1">Name *</label>
-                        <input type="text" id="custName" required placeholder="Enter a correct name" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Full Name *</label>
+                        <input type="text" id="custName" required placeholder="Enter correct name" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 mb-1">Contact Number *</label>
-                        <input type="tel" id="custPhone" required placeholder="Enter mobile number" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                        <input type="tel" id="custPhone" required placeholder="Enter mobile number" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">House no. / Building Name *</label>
-                    <input type="text" id="custHouse" required placeholder="Enter house no. or nearest building/road" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                    <input type="text" id="custHouse" required placeholder="House no. / nearest building or landmark" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Road Name / Area / Colony *</label>
-                    <input type="text" id="custArea" required placeholder="Enter road, area, village/city, post office name" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                    <input type="text" id="custArea" required placeholder="Road, area, village/city, post office" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Pincode *</label>
-                    <input type="text" id="custPincode" required maxlength="6" placeholder="Enter 6 digit Pincode" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                    <input type="text" id="custPincode" required maxlength="6" placeholder="Enter 6 digit Pincode" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 mb-1">City *</label>
-                        <input type="text" id="custCity" required placeholder="Enter your city" class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-rose-600">
+                        <input type="text" id="custCity" required placeholder="Enter your city" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 mb-1">State *</label>
-                        <input type="text" id="custState" required value="West Bengal" class="w-full border rounded-lg px-3 py-2 text-sm bg-gray-100 text-gray-700" readonly>
+                        <input type="text" id="custState" required placeholder="Enter your state" value="West Bengal" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-purple-700 text-white py-3 rounded-lg font-semibold hover:bg-purple-800 transition mt-4">
-                    Place Order via WhatsApp
+                <button type="submit" class="w-full bg-emerald-600 text-white py-3.5 rounded-xl font-bold text-base hover:bg-emerald-700 transition shadow-lg shadow-emerald-600/20 mt-6 flex items-center justify-center gap-2">
+                    <span>Place Order via WhatsApp</span>
                 </button>
             </form>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer id="contact" class="bg-white border-t mt-16 py-6 text-center text-gray-500 text-sm">
-        <p>&copy; 2026 Siraj Collection. All rights reserved.</p>
+    <footer class="bg-white border-t border-rose-100 py-8 text-center text-gray-500 text-sm mt-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-lg font-bold text-rose-600 font-serif mb-2">SR Collection</h2>
+            <p class="text-xs text-gray-400 mb-4">Your trusted destination for premium and budget-friendly artificial jewelry.</p>
+            <p>&copy; 2026 SR Collection. All rights reserved.</p>
+        </div>
     </footer>
 
     <!-- JavaScript for JSON Fetching, Image Zoom & WhatsApp Order -->
@@ -147,29 +172,30 @@
                     let thumbsHTML = '';
                     if(product.images && product.images.length > 1) {
                         product.images.forEach((img, index) => {
-                            thumbsHTML += `<img src="${img}" class="w-12 h-12 object-cover rounded-md cursor-pointer border-2 ${index === 0 ? 'border-rose-600' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
+                            thumbsHTML += `<img src="${img}" class="w-14 h-14 object-cover rounded-lg cursor-pointer border-2 ${index === 0 ? 'border-rose-600 shadow-sm' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
                         });
                     }
 
                     let card = document.createElement('div');
-                    card.className = "bg-white border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between";
+                    card.className = "bg-white border border-rose-100/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
                     card.innerHTML = `
                         <div>
-                            <div class="relative bg-gray-100">
-                                <img src="${product.images[0]}" id="main-img-${product.id}" class="w-full h-64 object-contain cursor-pointer" onclick="openImageModal('${product.images[0]}')" title="Click to zoom">
+                            <div class="relative bg-gray-50 overflow-hidden">
+                                <img src="${product.images[0]}" id="main-img-${product.id}" class="w-full h-72 object-contain cursor-pointer group-hover:scale-105 transition duration-500" onclick="openImageModal('${product.images[0]}')" title="Click to zoom">
+                                <span class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Best Seller</span>
                             </div>
-                            ${thumbsHTML ? `<div class="flex gap-2 p-2 bg-gray-50 overflow-x-auto border-b">${thumbsHTML}</div>` : ''}
-                            <div class="p-4">
-                                <h4 class="font-semibold text-base mb-2">${product.name}</h4>
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-rose-600 font-bold text-xl">${product.price}</span>
-                                    <span class="text-gray-400 line-through text-sm">${product.oldPrice}</span>
+                            ${thumbsHTML ? `<div class="flex gap-2 p-2.5 bg-rose-50/40 overflow-x-auto border-y border-rose-100">${thumbsHTML}</div>` : ''}
+                            <div class="p-5">
+                                <h4 class="font-bold text-lg mb-2 text-gray-800 font-serif leading-snug">${product.name}</h4>
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-rose-600 font-extrabold text-2xl">${product.price}</span>
+                                    <span class="text-gray-400 line-through text-sm font-medium">${product.oldPrice}</span>
                                 </div>
-                                <p class="text-xs text-gray-600 bg-gray-50 p-2 rounded border">${product.details}</p>
+                                <div class="text-xs text-gray-600 bg-rose-50/50 p-3 rounded-xl border border-rose-100 font-medium leading-relaxed">${product.details}</div>
                             </div>
                         </div>
-                        <div class="p-4 pt-0">
-                            <button onclick="openCheckout('${product.name}', '${product.price}')" class="w-full bg-rose-600 text-white py-2 rounded-lg font-medium hover:bg-rose-700 transition">
+                        <div class="p-5 pt-0">
+                            <button onclick="openCheckout('${product.name}', '${product.price}')" class="w-full bg-rose-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-rose-700 transition shadow-md shadow-rose-600/20">
                                 Buy Now
                             </button>
                         </div>
@@ -186,11 +212,11 @@
             
             let parent = element.parentElement;
             parent.querySelectorAll('img').forEach(img => {
-                img.classList.remove('border-rose-600');
+                img.classList.remove('border-rose-600', 'shadow-sm');
                 img.classList.add('border-transparent', 'opacity-60');
             });
             element.classList.remove('border-transparent', 'opacity-60');
-            element.classList.add('border-rose-600');
+            element.classList.add('border-rose-600', 'shadow-sm');
         }
 
         function openImageModal(imgSrc) {
