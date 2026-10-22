@@ -124,7 +124,7 @@
         <p>&copy; 2026 Siraj Collection. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for JSON Fetching, Thumbnails & WhatsApp Order -->
+    <!-- JavaScript for JSON Fetching, Details & WhatsApp Order -->
     <script>
         let currentProduct = "";
         let currentPrice = "";
@@ -153,11 +153,12 @@
                             </div>
                             ${thumbsHTML ? `<div class="flex gap-2 p-2 bg-gray-50 overflow-x-auto border-b">${thumbsHTML}</div>` : ''}
                             <div class="p-4">
-                                <h4 class="font-semibold text-lg mb-1">${product.name}</h4>
-                                <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-base mb-2">${product.name}</h4>
+                                <div class="flex items-center justify-between mb-2">
                                     <span class="text-rose-600 font-bold text-xl">${product.price}</span>
                                     <span class="text-gray-400 line-through text-sm">${product.oldPrice}</span>
                                 </div>
+                                <p class="text-xs text-gray-600 bg-gray-50 p-2 rounded border">${product.details}</p>
                             </div>
                         </div>
                         <div class="p-4 pt-0">
