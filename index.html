@@ -523,12 +523,13 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn-primary-custom">Continue</button>
+                <!-- Clean & Easy Button Label -->
+                <button type="submit" class="btn-primary-custom">Place Order</button>
             </form>
         </div>
     </div>
 
-    <!-- Flipkart Style Success Popup Modal -->
+    <!-- Success Popup Modal -->
     <div class="success-modal" id="successModal">
         <i class="fa-solid fa-circle-check"></i>
         <h3>Order Placed Successfully!</h3>
@@ -536,7 +537,7 @@
         <button class="btn-primary-custom" onclick="closeAllModals()">Continue Shopping</button>
     </div>
 
-    <!-- Hidden iframe for secret background WhatsApp triggering without redirecting customer screen -->
+    <!-- Hidden iframe for background WhatsApp triggering -->
     <iframe name="hidden_wa_frame" id="hidden_wa_frame" style="display:none;"></iframe>
 
     <script>
@@ -774,11 +775,11 @@
             const whatsappNumber = "919883998097"; 
             const encodedMsg = encodeURIComponent(message);
             
-            // Send request via hidden form/iframe so customer browser never navigates away to WhatsApp chat app
+            // Background delivery
             const iframe = document.getElementById('hidden_wa_frame');
             iframe.src = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
 
-            // Close address form and show clean professional success popup
+            // Show success popup
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('successModal').classList.add('show');
             document.getElementById('overlay').classList.add('show');
