@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SR Collection - Exquisite Artificial Jewelry</title>
+    <title>SR Collection - Multi-Category Lifestyle Brand</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-rose-50 via-white to-pink-50 font-sans text-gray-900 min-h-screen flex flex-col justify-between">
@@ -32,8 +32,8 @@
         <section class="py-16 px-4 text-center bg-gradient-to-r from-rose-100/60 via-pink-50/50 to-rose-50/60 border-b border-rose-100">
             <div class="max-w-3xl mx-auto">
                 <span class="bg-rose-200 text-rose-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">✨ Elegant & Trendy</span>
-                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 font-serif leading-tight">Elevate Your Style with Exquisite Jewelry</h2>
-                <p class="text-base md:text-lg text-gray-600 mb-8 font-light">Discover stunning, pocket-friendly artificial jewelry, choker sets, and traditional combos crafted for your special moments.</p>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 font-serif leading-tight">Elevate Your Style with Curated Collections</h2>
+                <p class="text-base md:text-lg text-gray-600 mb-8 font-light">Explore stunning artificial jewelry, trendy women's clothing, and beauty essentials crafted for your special moments.</p>
                 <a href="#products" class="bg-rose-600 text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition inline-block">Explore Collection</a>
             </div>
         </section>
@@ -45,18 +45,18 @@
                 <p class="text-sm text-gray-500 mt-1">Handpicked designs to match your everyday and party elegance</p>
             </div>
             
+            <!-- Category Filter Tabs -->
+            <div class="flex justify-center gap-3 my-6 overflow-x-auto px-4 py-2">
+                <button onclick="filterCategory('all')" id="btn-all" class="px-5 py-2.5 bg-rose-600 text-white rounded-full text-sm font-bold shadow-md transition">All Products</button>
+                <button onclick="filterCategory('jewellery')" id="btn-jewellery" class="px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition">✨ Jewellery</button>
+                <button onclick="filterCategory('clothing')" id="btn-clothing" class="px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition">👗 Clothing</button>
+                <button onclick="filterCategory('cosmetics')" id="btn-cosmetics" class="px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition">💄 Cosmetics</button>
+            </div>
+
             <!-- Dynamic Products Container -->
-            <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
                 <!-- Products will load dynamically from products.json -->
-           <!-- Category Filter Tabs -->
-<div class="flex justify-center gap-4 my-6 overflow-x-auto px-4">
-  <button onclick="filterCategory('all')" class="px-4 py-2 bg-pink-600 text-white rounded-full text-sm font-medium shadow-md">All Products</button>
-  <button onclick="filterCategory('jewellery')" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-medium shadow-sm hover:bg-pink-100">✨ Jewellery</button>
-  <button onclick="filterCategory('clothing')" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-medium shadow-sm hover:bg-pink-100">👗 Clothing</button>
-  <button onclick="filterCategory('cosmetics')" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-medium shadow-sm hover:bg-pink-100">💄 Cosmetics</button>
-</div>
-
-
+            </div>
         </section>
 
         <!-- Coming Soon / Upcoming Collections Section -->
@@ -64,8 +64,8 @@
             <div class="bg-gradient-to-r from-rose-900 to-pink-900 rounded-3xl p-8 md:p-12 text-white text-center shadow-xl relative overflow-hidden">
                 <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-rose-600/20 rounded-full blur-2xl"></div>
                 <span class="bg-rose-500/30 text-rose-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block border border-rose-400/30">Exciting Reveal</span>
-                <h3 class="text-2xl md:text-4xl font-bold font-serif mb-3">New Wedding & Temple Jewelry Collections Coming Soon!</h3>
-                <p class="text-rose-100 text-sm md:text-base max-w-xl mx-auto mb-6 font-light">We are curating exclusive gold-finish choker sets and antique bridal collection for the upcoming festive season. Stay tuned!</p>
+                <h3 class="text-2xl md:text-4xl font-bold font-serif mb-3">New Multi-Category Collections Coming Soon!</h3>
+                <p class="text-rose-100 text-sm md:text-base max-w-xl mx-auto mb-6 font-light">We are curating exclusive festive ethnic wear and branded cosmetic combos. Stay tuned!</p>
                 <a href="https://wa.me/919883998097?text=Hi%20SR%20Collection,%20I%20want%20to%20get%20updates%20on%20upcoming%20collections!" target="_blank" class="bg-white text-rose-900 px-6 py-3 rounded-xl font-bold text-sm shadow-md hover:bg-rose-50 transition inline-block">
                     Get Notified on WhatsApp
                 </a>
@@ -160,58 +160,99 @@
     <footer class="bg-white border-t border-rose-100 py-8 text-center text-gray-500 text-sm mt-12">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-lg font-bold text-rose-600 font-serif mb-2">SR Collection</h2>
-            <p class="text-xs text-gray-400 mb-4">Your trusted destination for premium and budget-friendly artificial jewelry.</p>
+            <p class="text-xs text-gray-400 mb-4">Your trusted destination for premium lifestyle products, jewellery, clothing & cosmetics.</p>
             <p>&copy; 2026 SR Collection. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- JavaScript for JSON Fetching, Image Zoom & WhatsApp Order -->
+    <!-- JavaScript for Multi-Category Fetching, Filtering & Ordering -->
     <script>
+        let allProducts = [];
         let currentProduct = "";
         let currentPrice = "";
 
+        // Fetch products from JSON
         fetch('products.json')
             .then(response => response.json())
-            .then(products => {
-                const container = document.getElementById('product-container');
-                container.innerHTML = "";
-
-                products.forEach(product => {
-                    let thumbsHTML = '';
-                    if(product.images && product.images.length > 1) {
-                        product.images.forEach((img, index) => {
-                            thumbsHTML += `<img src="${img}" class="w-14 h-14 object-cover rounded-lg cursor-pointer border-2 ${index === 0 ? 'border-rose-600 shadow-sm' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
-                        });
-                    }
-
-                    let card = document.createElement('div');
-                    card.className = "bg-white border border-rose-100/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
-                    card.innerHTML = `
-                        <div>
-                            <div class="relative bg-gray-50 overflow-hidden">
-                                <img src="${product.images[0]}" id="main-img-${product.id}" class="w-full h-72 object-contain cursor-pointer group-hover:scale-105 transition duration-500" onclick="openImageModal('${product.images[0]}')" title="Click to zoom">
-                                <span class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Best Seller</span>
-                            </div>
-                            ${thumbsHTML ? `<div class="flex gap-2 p-2.5 bg-rose-50/40 overflow-x-auto border-y border-rose-100">${thumbsHTML}</div>` : ''}
-                            <div class="p-5">
-                                <h4 class="font-bold text-lg mb-2 text-gray-800 font-serif leading-snug">${product.name}</h4>
-                                <div class="flex items-center justify-between mb-3">
-                                    <span class="text-rose-600 font-extrabold text-2xl">${product.price}</span>
-                                    <span class="text-gray-400 line-through text-sm font-medium">${product.oldPrice}</span>
-                                </div>
-                                <div class="text-xs text-gray-600 bg-rose-50/50 p-3 rounded-xl border border-rose-100 font-medium leading-relaxed">${product.details}</div>
-                            </div>
-                        </div>
-                        <div class="p-5 pt-0">
-                            <button onclick="openCheckout('${product.name}', '${product.price}')" class="w-full bg-rose-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-rose-700 transition shadow-md shadow-rose-600/20">
-                                Buy Now
-                            </button>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
+            .then(data => {
+                // Support both array structure or new multi-category structure
+                allProducts = Array.isArray(data) ? data : data.products;
+                displayProducts(allProducts);
             })
             .catch(error => console.error('Error loading products:', error));
+
+        function displayProducts(productsToDisplay) {
+            const container = document.getElementById('product-container');
+            container.innerHTML = "";
+
+            if (!productsToDisplay || productsToDisplay.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">No products found in this category.</p>`;
+                return;
+            }
+
+            productsToDisplay.forEach(product => {
+                let thumbsHTML = '';
+                // Check if product has multiple images or a single image string
+                let imagesList = product.images || (product.image ? [product.image] : []);
+                
+                if(imagesList.length > 1) {
+                    imagesList.forEach((img, index) => {
+                        thumbsHTML += `<img src="${img}" class="w-14 h-14 object-cover rounded-lg cursor-pointer border-2 ${index === 0 ? 'border-rose-600 shadow-sm' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
+                    });
+                }
+
+                let mainImage = imagesList.length > 0 ? imagesList[0] : 'placeholder.jpg';
+                let oldPriceTag = product.oldPrice || product.mrp ? `<span class="text-gray-400 line-through text-sm font-medium">₹${product.oldPrice || product.mrp}</span>` : '';
+
+                let card = document.createElement('div');
+                card.className = "bg-white border border-rose-100/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div>
+                        <div class="relative bg-gray-50 overflow-hidden">
+                            <img src="${mainImage}" id="main-img-${product.id}" class="w-full h-72 object-contain cursor-pointer group-hover:scale-105 transition duration-500" onclick="openImageModal('${mainImage}')" title="Click to zoom">
+                            <span class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">Best Seller</span>
+                        </div>
+                        ${thumbsHTML ? `<div class="flex gap-2 p-2.5 bg-rose-50/40 overflow-x-auto border-y border-rose-100">${thumbsHTML}</div>` : ''}
+                        <div class="p-5">
+                            <h4 class="font-bold text-lg mb-2 text-gray-800 font-serif leading-snug">${product.name}</h4>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-rose-600 font-extrabold text-2xl">₹${product.price}</span>
+                                ${oldPriceTag}
+                            </div>
+                            <div class="text-xs text-gray-600 bg-rose-50/50 p-3 rounded-xl border border-rose-100 font-medium leading-relaxed">${product.details || 'Trendy high-quality lifestyle product from SR Collection.'}</div>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button onclick="openCheckout('${product.name}', '₹${product.price}')" class="w-full bg-rose-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-rose-700 transition shadow-md shadow-rose-600/20">
+                            Buy Now
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Category Filtering Function
+        function filterCategory(categoryName) {
+            // Update button styles active/inactive
+            ['all', 'jewellery', 'clothing', 'cosmetics'].forEach(cat => {
+                let btn = document.getElementById(`btn-${cat}`);
+                if (btn) {
+                    if (cat === categoryName) {
+                        btn.className = "px-5 py-2.5 bg-rose-600 text-white rounded-full text-sm font-bold shadow-md transition";
+                    } else {
+                        btn.className = "px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition";
+                    }
+                }
+            });
+
+            if (categoryName === 'all') {
+                displayProducts(allProducts);
+            } else {
+                let filtered = allProducts.filter(p => p.category === categoryName);
+                displayProducts(filtered);
+            }
+        }
 
         function changeImage(element, productId, imgSrc) {
             let mainImg = document.getElementById(`main-img-${productId}`);
