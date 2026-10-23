@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SR Collection - Official Store</title>
-    <!-- Google Fonts & FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #800020; /* Rich Maroon */
+            --primary: #800020;
             --primary-dark: #5c0017;
-            --accent: #d4af37; /* Gold */
+            --accent: #d4af37;
             --bg-light: #fdfbf7;
             --text-dark: #222222;
             --text-muted: #666666;
@@ -34,7 +33,6 @@
             padding-bottom: 80px;
         }
 
-        /* Header / Navbar */
         header {
             background: linear-gradient(135deg, var(--white), #fff9f5);
             padding: 15px 20px;
@@ -55,7 +53,6 @@
             color: var(--primary);
             text-decoration: none;
             letter-spacing: 0.5px;
-            text-shadow: 1px 1px 2px rgba(212,175,55,0.2);
         }
 
         .nav-icons {
@@ -86,7 +83,6 @@
             border: 1px solid var(--accent);
         }
 
-        /* Search Section */
         .search-container {
             padding: 15px 20px;
             background: var(--white);
@@ -112,11 +108,8 @@
             color: var(--text-dark);
         }
 
-        .search-bar i {
-            color: var(--primary);
-        }
+        .search-bar i { color: var(--primary); }
 
-        /* Category Filter Pills */
         .category-scroll {
             display: flex;
             gap: 10px;
@@ -128,9 +121,7 @@
             border-bottom: 1px solid #eee;
         }
 
-        .category-scroll::-webkit-scrollbar {
-            display: none;
-        }
+        .category-scroll::-webkit-scrollbar { display: none; }
 
         .cat-pill {
             padding: 8px 20px;
@@ -151,7 +142,6 @@
             box-shadow: 0 4px 10px rgba(128,0,32,0.3);
         }
 
-        /* Main Container */
         .container {
             max-width: 1200px;
             margin: auto;
@@ -171,7 +161,6 @@
             padding-bottom: 8px;
         }
 
-        /* Product Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -192,31 +181,51 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
             border: 1px solid #f0e6d2;
         }
 
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 25px rgba(128,0,32,0.15);
-        }
-
+        /* Image Slider Container inside Product Card */
         .product-img-box {
             position: relative;
             width: 100%;
             height: 180px;
             background: #f7f7f7;
+            overflow: hidden;
         }
 
         @media(min-width: 768px) {
             .product-img-box { height: 220px; }
         }
 
-        .product-img-box img {
+        .slider-track {
+            display: flex;
             width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .slider-track img {
+            min-width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.4);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 4px;
+            z-index: 10;
+        }
+
+        .slider-btn.prev { left: 5px; }
+        .slider-btn.next { right: 5px; }
 
         .badge {
             position: absolute;
@@ -228,8 +237,8 @@
             padding: 4px 10px;
             border-radius: 4px;
             font-weight: 700;
-            letter-spacing: 0.5px;
             border: 1px solid var(--accent);
+            z-index: 10;
         }
 
         .product-info {
@@ -244,6 +253,16 @@
             font-size: 13px;
             font-weight: 600;
             color: var(--text-dark);
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-desc {
+            font-size: 11px;
+            color: var(--text-muted);
             margin-bottom: 8px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -255,7 +274,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .current-price {
@@ -280,31 +299,12 @@
             font-weight: 600;
             cursor: pointer;
             width: 100%;
-            transition: opacity 0.2s;
         }
 
-        .btn-add-cart:active {
-            opacity: 0.85;
-        }
-
-        .empty-msg {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            font-size: 14px;
-            background: var(--white);
-            border-radius: var(--radius);
-            border: 1px dashed var(--accent);
-        }
-
-        /* Cart Drawer & Checkout Modals */
         .overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
             z-index: 999;
             display: none;
@@ -313,10 +313,8 @@
 
         .modal-drawer {
             position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%;
-            max-width: 420px;
+            top: 0; right: -100%;
+            width: 100%; max-width: 420px;
             height: 100%;
             background: var(--white);
             box-shadow: -5px 0 25px rgba(0,0,0,0.2);
@@ -337,11 +335,6 @@
             border-bottom: 2px solid var(--accent);
         }
 
-        .modal-header h3 {
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 0.5px;
-        }
-
         .modal-body {
             padding: 20px;
             flex-grow: 1;
@@ -358,15 +351,14 @@
         }
 
         .cart-item img {
-            width: 65px;
-            height: 65px;
+            width: 65px; height: 65px;
             object-fit: cover;
             border-radius: 8px;
             border: 1px solid #ddd;
         }
 
         .cart-item-details { flex-grow: 1; }
-        .cart-item-title { font-size: 13px; font-weight: 600; color: var(--text-dark); }
+        .cart-item-title { font-size: 13px; font-weight: 600; }
         .cart-item-price { font-size: 13px; color: var(--primary); font-weight: 700; margin-top: 4px; }
 
         .modal-footer {
@@ -394,20 +386,10 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(128,0,32,0.2);
         }
 
-        /* Exact Meesho/Flipkart Style Address Form */
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 12px;
-        }
-
+        .form-group { margin-bottom: 18px; }
+        .form-row { display: flex; gap: 12px; }
         .form-group label {
             display: block;
             font-size: 12px;
@@ -415,7 +397,6 @@
             color: var(--primary);
             margin-bottom: 6px;
         }
-
         .form-group input, .form-group select {
             width: 100%;
             padding: 12px;
@@ -424,25 +405,11 @@
             font-size: 14px;
             outline: none;
             background: #fff;
-            color: var(--text-dark);
-        }
-
-        .form-group input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 5px rgba(128,0,32,0.2);
-        }
-
-        .form-hint {
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 4px;
-            display: block;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <a href="#" class="logo">SR COLLECTION</a>
         <div class="nav-icons">
@@ -453,15 +420,13 @@
         </div>
     </header>
 
-    <!-- Search Bar -->
     <div class="search-container">
         <div class="search-bar">
             <i class="fa-solid fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Search for jewellery, clothing, cosmetics..." oninput="filterProducts()">
+            <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
         </div>
     </div>
 
-    <!-- Category Filter Pills -->
     <div class="category-scroll">
         <button class="cat-pill active" onclick="filterCategory('all', this)">All Products</button>
         <button class="cat-pill" onclick="filterCategory('jewellery', this)">Jewellery</button>
@@ -469,10 +434,8 @@
         <button class="cat-pill" onclick="filterCategory('cosmetics', this)">Cosmetics</button>
     </div>
 
-    <!-- Main Content -->
     <div class="container" id="mainContainer"></div>
 
-    <!-- Cart Drawer Modal -->
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
     <div class="modal-drawer" id="cartModal">
         <div class="modal-header">
@@ -489,7 +452,6 @@
         </div>
     </div>
 
-    <!-- Address Checkout Form Modal (Flipkart / Meesho Style) -->
     <div class="modal-drawer" id="addressModal">
         <div class="modal-header">
             <h3>EDIT DELIVERY ADDRESS</h3>
@@ -500,34 +462,29 @@
                 <div class="form-row">
                     <div class="form-group" style="flex:1;">
                         <label>Name *</label>
-                        <input type="text" id="custName" required placeholder="Enter a correct name">
+                        <input type="text" id="custName" required placeholder="Enter name">
                     </div>
                     <div class="form-group" style="flex:1;">
                         <label>Contact Number *</label>
-                        <input type="tel" id="custPhone" required placeholder="10-digit mobile number" pattern="[0-9]{10}">
+                        <input type="tel" id="custPhone" required placeholder="10-digit mobile">
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>House no. / Building Name *</label>
-                    <input type="text" id="custHouse" required placeholder="Enter house no. or nearest building/road">
+                    <input type="text" id="custHouse" required placeholder="House no. / building">
                 </div>
-
                 <div class="form-group">
                     <label>Road Name / Area / Colony *</label>
-                    <input type="text" id="custArea" required placeholder="Enter road, area, village/city, post office">
+                    <input type="text" id="custArea" required placeholder="Road / Area / Colony">
                 </div>
-
                 <div class="form-group">
                     <label>Pincode *</label>
-                    <input type="text" id="custPincode" required placeholder="6 digit Pincode" pattern="[0-9]{6}">
-                    <span class="form-hint">Please enter 6 digit Pincode</span>
+                    <input type="text" id="custPincode" required placeholder="6-digit Pincode">
                 </div>
-
                 <div class="form-row">
                     <div class="form-group" style="flex:1;">
                         <label>City *</label>
-                        <input type="text" id="custCity" required placeholder="Enter your city">
+                        <input type="text" id="custCity" required placeholder="City">
                     </div>
                     <div class="form-group" style="flex:1;">
                         <label>State *</label>
@@ -539,38 +496,41 @@
                             <option value="Delhi">Delhi</option>
                             <option value="Maharashtra">Maharashtra</option>
                             <option value="Karnataka">Karnataka</option>
-                            <option value="Other">Other State</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                 </div>
-
-                <button type="submit" class="btn-primary-custom" style="margin-top: 10px;">Continue</button>
+                <button type="submit" class="btn-primary-custom">Continue</button>
             </form>
         </div>
     </div>
 
     <script>
-        let allProductsData = { jewellery: [], clothing: [], cosmetics: [] };
+        let allProductsData = {
+            jewellery: [
+                {
+                    id: 1,
+                    name: "Traditional Gold-Plated Mangalsutra Combo",
+                    price: 377,
+                    oldPrice: 799,
+                    images: ["1792674711363.png", "1792674653870.png"],
+                    details: "Traditional high-quality gold plated mangalsutra and bangle combo set."
+                },
+                {
+                    id: 2,
+                    name: "Gold Plated Peacock Motif Choker Set",
+                    price: 450,
+                    oldPrice: 999,
+                    images: ["1792616459138.png"],
+                    details: "Exclusive peacock design gold plated choker necklace set with matching earrings."
+                }
+            ],
+            clothing: [],
+            cosmetics: []
+        };
+
         let cart = [];
         let currentFilter = 'all';
-
-        async function loadStoreData() {
-            try {
-                const [jewelleryRes, clothingRes, cosmeticsRes] = await Promise.all([
-                    fetch('jewellery.json').catch(() => ({ json: () => [] })),
-                    fetch('clothing.json').catch(() => ({ json: () => [] })),
-                    fetch('cosmetics.json').catch(() => ({ json: () => [] }))
-                ]);
-
-                allProductsData.jewellery = await jewelleryRes.json();
-                allProductsData.clothing = await clothingRes.json();
-                allProductsData.cosmetics = await cosmeticsRes.json();
-
-                renderProducts();
-            } catch (error) {
-                console.error("Error loading products:", error);
-            }
-        }
 
         function renderProducts(searchQuery = '') {
             const container = document.getElementById('mainContainer');
@@ -598,14 +558,32 @@
 
                 if (products.length > 0) {
                     products.forEach(p => {
+                        let imgHtml = '';
+                        let sliderButtons = '';
+                        
+                        if (p.images.length > 1) {
+                            let imgs = p.images.map(img => `<img src="${img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">`).join('');
+                            imgHtml = `<div class="slider-track" id="slider-${cat.key}-${p.id}">${imgs}</div>`;
+                            sliderButtons = `
+                                <button class="slider-btn prev" onclick="moveSlide('${cat.key}', ${p.id}, -1)">❮</button>
+                                <button class="slider-btn next" onclick="moveSlide('${cat.key}', ${p.id}, 1)">❯</button>
+                            `;
+                        } else {
+                            imgHtml = `<div class="slider-track"><img src="${p.images[0]}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'"></div>`;
+                        }
+
                         sectionHTML += `
                             <div class="product-card">
                                 <div class="product-img-box">
                                     <span class="badge">TRENDING</span>
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">
+                                    ${imgHtml}
+                                    ${sliderButtons}
                                 </div>
                                 <div class="product-info">
-                                    <div class="product-name">${p.name}</div>
+                                    <div>
+                                        <div class="product-name">${p.name}</div>
+                                        <div class="product-desc">${p.details}</div>
+                                    </div>
                                     <div>
                                         <div class="price-row">
                                             <span class="current-price">₹${p.price}</span>
@@ -618,12 +596,28 @@
                         `;
                     });
                 } else {
-                    sectionHTML += `<div class="empty-msg">New trendy items coming soon in this collection!</div>`;
+                    sectionHTML += `<div style="grid-column:1/-1; text-align:center; padding:30px; color:#666; background:white; border-radius:12px;">New trendy items coming soon!</div>`;
                 }
 
                 sectionHTML += `</div></div>`;
                 container.innerHTML += sectionHTML;
             });
+        }
+
+        // Image Slider logic
+        let slideIndexes = {};
+        function moveSlide(category, id, direction) {
+            let key = `${category}-${id}`;
+            if (!(key in slideIndexes)) slideIndexes[key] = 0;
+            
+            let product = allProductsData[category].find(p => p.id === id);
+            slideIndexes[key] += direction;
+            
+            if (slideIndexes[key] >= product.images.length) slideIndexes[key] = 0;
+            if (slideIndexes[key] < 0) slideIndexes[key] = product.images.length - 1;
+            
+            let track = document.getElementById(`slider-${key}`);
+            track.style.transform = `translateX(-${slideIndexes[key] * 100}%)`;
         }
 
         function filterCategory(category, btn) {
@@ -645,7 +639,7 @@
             if (existing) {
                 existing.qty += 1;
             } else {
-                cart.push({ ...product, category, qty: 1 });
+                cart.push({ ...product, image: product.images[0], category, qty: 1 });
             }
 
             updateCartUI();
@@ -675,7 +669,7 @@
                                 <div class="cart-item-title">${item.name}</div>
                                 <div class="cart-item-price">₹${item.price} x ${item.qty}</div>
                             </div>
-                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#800020; cursor:pointer; font-size:16px;"><i class="fa-solid fa-trash"></i></button>
+                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#800020; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     `;
                 });
@@ -740,21 +734,18 @@
             message += `\n💰 *Total Amount: ₹${total}*\n`;
             message += `-----------------------------------`;
 
-            // WhatsApp number (apna WhatsApp number yahan daal lena, abhi placeholder hai)
             const whatsappNumber = "919876543210"; 
             const encodedMsg = encodeURIComponent(message);
             
-            // Open WhatsApp with details
             window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, '_blank');
 
-            // Success screen to customer (Flipkart style)
-            alert('Order Placed Successfully! Your order details have been sent to SR Collection.');
+            alert('Order Placed Successfully! Details sent to SR Collection.');
             cart = [];
             updateCartUI();
             closeAllModals();
         }
 
-        loadStoreData();
+        renderProducts();
     </script>
 </body>
 </html>
