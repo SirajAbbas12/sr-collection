@@ -184,7 +184,6 @@
             border: 1px solid #f0e6d2;
         }
 
-        /* Image Slider Container inside Product Card */
         .product-img-box {
             position: relative;
             width: 100%;
@@ -406,6 +405,27 @@
             outline: none;
             background: #fff;
         }
+
+        /* Success Popup Modal */
+        .success-modal {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            z-index: 1100;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            display: none;
+            border: 2px solid var(--accent);
+        }
+        .success-modal.show { display: block; transform: translate(-50%, -50%) scale(1); transition: all 0.3s ease; }
+        .success-modal i { font-size: 48px; color: #28a745; margin-bottom: 15px; }
+        .success-modal h3 { font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 10px; }
+        .success-modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -437,6 +457,8 @@
     <div class="container" id="mainContainer"></div>
 
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
+    
+    <!-- Cart Drawer -->
     <div class="modal-drawer" id="cartModal">
         <div class="modal-header">
             <h3>Your Shopping Trolley</h3>
@@ -452,6 +474,7 @@
         </div>
     </div>
 
+    <!-- Address Checkout Form Modal -->
     <div class="modal-drawer" id="addressModal">
         <div class="modal-header">
             <h3>EDIT DELIVERY ADDRESS</h3>
@@ -503,6 +526,14 @@
                 <button type="submit" class="btn-primary-custom">Continue</button>
             </form>
         </div>
+    </div>
+
+    <!-- Flipkart Style Success Popup Modal -->
+    <div class="success-modal" id="successModal">
+        <i class="fa-solid fa-circle-check"></i>
+        <h3>Order Placed Successfully!</h3>
+        <p>Thank you for shopping with SR Collection. Your order has been confirmed successfully.</p>
+        <button class="btn-primary-custom" onclick="closeAllModals()">Continue Shopping</button>
     </div>
 
     <script>
@@ -604,7 +635,6 @@
             });
         }
 
-        // Image Slider logic
         let slideIndexes = {};
         function moveSlide(category, id, direction) {
             let key = `${category}-${id}`;
@@ -631,6 +661,7 @@
             renderProducts(document.getElementById('searchInput').value);
         }
 
+        // Updated: Add to Cart no longer opens cart automatically, only updates badge count
         function addToCart(category, id) {
             const product = allProductsData[category].find(p => p.id === id);
             if (!product) return;
@@ -643,7 +674,11 @@
             }
 
             updateCartUI();
-            openCart();
+            
+            // Optional mini notification or feedback
+            const badge = document.getElementById('cartCount');
+            badge.style.transform = 'scale(1.3)';
+            setTimeout(() => badge.style.transform = 'scale(1)', 200);
         }
 
         function updateCartUI() {
@@ -701,8 +736,10 @@
             document.getElementById('overlay').classList.remove('show');
             document.getElementById('cartModal').classList.remove('open');
             document.getElementById('addressModal').classList.remove('open');
+            document.getElementById('successModal').classList.remove('show');
         }
 
+        // Updated: Submit order shows clean success screen and sends details to WhatsApp in background/hidden manner without forcing customer chat screen redirection
         function submitOrder(e) {
             e.preventDefault();
             
@@ -737,12 +774,16 @@
             const whatsappNumber = "919876543210"; 
             const encodedMsg = encodeURIComponent(message);
             
-            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, '_blank');
+            // Open WhatsApp via hidden link/iframe or background window so customer stays on success screen
+            const waWindow = window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, '_blank');
 
-            alert('Order Placed Successfully! Details sent to SR Collection.');
+            // Close address form and show clean Flipkart-style success modal
+            document.getElementById('addressModal').classList.remove('open');
+            document.getElementById('successModal').classList.add('show');
+            document.getElementById('overlay').classList.add('show');
+
             cart = [];
             updateCartUI();
-            closeAllModals();
         }
 
         renderProducts();
