@@ -48,7 +48,15 @@
             <!-- Dynamic Products Container -->
             <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Products will load dynamically from products.json -->
-            </div>
+           <!-- Category Filter Tabs -->
+<div class="flex justify-center gap-4 my-6 overflow-x-auto px-4">
+  <button onclick="filterCategory('all')" class="px-4 py-2 bg-pink-600 text-white rounded-full text-sm font-medium shadow-md">All Products</button>
+  <button onclick="filterCategory('jewellery')" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-medium shadow-sm hover:bg-pink-100">✨ Jewellery</button>
+  <button onclick="filterCategory('clothing')" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-medium shadow-sm hover:bg-pink-100">👗 Clothing</button>
+  <button onclick="filterCategory('cosmetics')" class="px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-medium shadow-sm hover:bg-pink-100">💄 Cosmetics</button>
+</div>
+
+
         </section>
 
         <!-- Coming Soon / Upcoming Collections Section -->
