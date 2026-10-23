@@ -4,319 +4,640 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SR Collection - Official Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #800020; /* Rich Maroon */
+            --primary-dark: #5c0017;
+            --accent: #d4af37; /* Gold */
+            --bg-light: #fdfbf7;
+            --text-dark: #222222;
+            --text-muted: #666666;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding-bottom: 80px;
+        }
+
+        /* Header / Navbar */
+        header {
+            background: var(--white);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-dark);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* Search Section */
+        .search-container {
+            padding: 12px 20px;
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f1f1f1;
+            border-radius: 30px;
+            padding: 8px 15px;
+        }
+
+        .search-bar input {
+            border: none;
+            background: none;
+            outline: none;
+            width: 100%;
+            padding-left: 10px;
+            font-size: 14px;
+        }
+
+        .search-bar i {
+            color: var(--text-muted);
+        }
+
+        /* Category Filter Pills */
+        .category-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 15px 20px;
+            background: var(--white);
+            white-space: nowrap;
+            scrollbar-width: none;
+        }
+
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-pill {
+            padding: 8px 18px;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            background: var(--white);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cat-pill.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        @media(min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .product-img-box {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            background: #f7f7f7;
+        }
+
+        @media(min-width: 768px) {
+            .product-img-box { height: 220px; }
+        }
+
+        .product-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--primary);
+            color: var(--white);
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .product-info {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .current-price {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .old-price {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .btn-add-cart {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .btn-add-cart:active {
+            background: var(--primary-dark);
+        }
+
+        .empty-msg {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 14px;
+            background: var(--white);
+            border-radius: var(--radius);
+        }
+
+        /* Cart Drawer / Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background: var(--white);
+            box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-modal.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 20px;
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-body {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .cart-item-price {
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .whatsapp-checkout-btn {
+            background: #25D366;
+            color: var(--white);
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 font-sans text-gray-900 min-h-screen flex flex-col justify-between scroll-smooth">
+<body>
 
-    <div>
-        <!-- Header / Navbar -->
-        <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-            <div class="max-w-7xl mx-auto px-4 py-3.5 flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <h1 class="text-2xl font-black tracking-wider text-rose-600 font-serif">SR COLLECTION</h1>
-                </div>
-                <div class="flex items-center gap-3">
-                    <a href="https://wa.me/919883998097" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider shadow hover:bg-emerald-700 transition flex items-center gap-1">
-                        <span>💬 Support</span>
-                    </a>
-                </div>
-            </div>
-        </header>
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">SR COLLECTION</a>
+        <div class="nav-icons">
+            <button class="icon-btn" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
 
-        <!-- Hero Banner Section -->
-        <section class="bg-gradient-to-r from-rose-900 to-pink-900 text-white py-12 px-4 text-center">
-            <div class="max-w-3xl mx-auto">
-                <span class="bg-rose-500/30 text-rose-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block border border-rose-400/30">Official Store</span>
-                <h2 class="text-3xl md:text-5xl font-black font-serif mb-3">Shop By Category</h2>
-                <p class="text-rose-100 text-sm md:text-base font-light">Explore our exclusive collections crafted for your elegance.</p>
-            </div>
-        </section>
-
-        <!-- Flipkart/Amazon Style Category Showcase Cards -->
-        <section class="max-w-7xl mx-auto px-4 -mt-6 mb-12 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- Jewellery Category Card -->
-                <a href="#jewellery-section" class="bg-white p-6 rounded-2xl shadow-md border border-rose-100 hover:shadow-xl transition flex items-center justify-between group">
-                    <div>
-                        <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">Explore</span>
-                        <h3 class="text-xl font-bold text-gray-800 font-serif mt-1">✨ Jewellery</h3>
-                        <p class="text-xs text-gray-500 mt-1">Choker sets & traditional combos</p>
-                    </div>
-                    <span class="bg-rose-50 text-rose-600 p-3 rounded-xl group-hover:bg-rose-600 group-hover:text-white transition">➔</span>
-                </a>
-
-                <!-- Clothing Category Card -->
-                <a href="#clothing-section" class="bg-white p-6 rounded-2xl shadow-md border border-pink-100 hover:shadow-xl transition flex items-center justify-between group">
-                    <div>
-                        <span class="text-xs font-bold text-pink-600 uppercase tracking-wider">Explore</span>
-                        <h3 class="text-xl font-bold text-gray-800 font-serif mt-1">👗 Women's Clothing</h3>
-                        <p class="text-xs text-gray-500 mt-1">Ethnic wear & party kurtis</p>
-                    </div>
-                    <span class="bg-pink-50 text-pink-600 p-3 rounded-xl group-hover:bg-pink-600 group-hover:text-white transition">➔</span>
-                </a>
-
-                <!-- Cosmetics Category Card -->
-                <a href="#cosmetics-section" class="bg-white p-6 rounded-2xl shadow-md border border-rose-100 hover:shadow-xl transition flex items-center justify-between group">
-                    <div>
-                        <span class="text-xs font-bold text-rose-500 uppercase tracking-wider">Explore</span>
-                        <h3 class="text-xl font-bold text-gray-800 font-serif mt-1">💄 Beauty & Cosmetics</h3>
-                        <p class="text-xs text-gray-500 mt-1">Matte lipsticks & makeup combos</p>
-                    </div>
-                    <span class="bg-rose-50 text-rose-500 p-3 rounded-xl group-hover:bg-rose-500 group-hover:text-white transition">➔</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- 1. Jewellery Section -->
-        <section id="jewellery-section" class="max-w-7xl mx-auto px-4 py-8">
-            <div class="border-b border-gray-200 pb-3 mb-6 flex justify-between items-center">
-                <h3 class="text-xl font-black text-gray-800 font-serif uppercase tracking-wide">✨ Jewellery Collection</h3>
-            </div>
-            <div id="jewellery-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Jewellery products load here -->
-            </div>
-        </section>
-
-        <!-- 2. Clothing Section -->
-        <section id="clothing-section" class="max-w-7xl mx-auto px-4 py-8 border-t border-gray-200">
-            <div class="border-b border-gray-200 pb-3 mb-6 flex justify-between items-center">
-                <h3 class="text-xl font-black text-gray-800 font-serif uppercase tracking-wide">👗 Women's Clothing</h3>
-            </div>
-            <div id="clothing-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Clothing products load here -->
-            </div>
-        </section>
-
-        <!-- 3. Cosmetics Section -->
-        <section id="cosmetics-section" class="max-w-7xl mx-auto px-4 py-8 border-t border-gray-200">
-            <div class="border-b border-gray-200 pb-3 mb-6 flex justify-between items-center">
-                <h3 class="text-xl font-black text-gray-800 font-serif uppercase tracking-wide">💄 Beauty & Cosmetics</h3>
-            </div>
-            <div id="cosmetics-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Cosmetics products load here -->
-            </div>
-        </section>
-
-        <!-- Feedback Section -->
-        <section id="feedback" class="bg-white py-12 px-4 border-t border-gray-200 mt-12">
-            <div class="max-w-xl mx-auto bg-gray-50 p-8 rounded-2xl shadow-sm border border-gray-200">
-                <h3 class="text-2xl font-bold text-center mb-2 text-gray-800 font-serif">Customer Feedback</h3>
-                <p class="text-sm text-gray-500 text-center mb-6">Have a query? Drop your message below.</p>
-                <form action="https://formspree.io/f/xljgqoae" method="POST" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 mb-1">Your Email *</label>
-                        <input type="email" name="email" required placeholder="Enter your email" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 bg-white">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 mb-1">Your Message *</label>
-                        <textarea name="message" rows="4" required placeholder="Write your feedback..." class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 bg-white"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-rose-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-rose-700 transition shadow">
-                        Send Feedback
-                    </button>
-                </form>
-            </div>
-        </section>
-    </div>
-
-    <!-- Image Zoom Modal -->
-    <div id="imageModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-        <div class="relative max-w-4xl w-full flex justify-center items-center">
-            <button onclick="closeImageModal()" class="absolute -top-12 right-0 text-white text-4xl font-light hover:text-rose-400 transition">&times;</button>
-            <img id="modalImg" src="" class="max-h-[85vh] max-w-full object-contain rounded-2xl shadow-2xl">
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div class="search-bar">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search for jewellery, clothing, cosmetics..." oninput="filterProducts()">
         </div>
     </div>
 
-    <!-- Checkout Modal -->
-    <div id="checkoutModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200">
-            <button onclick="closeCheckout()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 text-2xl font-light">&times;</button>
-            <h3 class="text-xl font-bold mb-1 text-gray-800 font-serif">Enter Delivery Address</h3>
-            <p id="selectedProductText" class="text-sm text-rose-600 font-semibold mb-6"></p>
+    <!-- Category Filter Pills -->
+    <div class="category-scroll">
+        <button class="cat-pill active" onclick="filterCategory('all', this)">All Products</button>
+        <button class="cat-pill" onclick="filterCategory('jewellery', this)">Jewellery</button>
+        <button class="cat-pill" onclick="filterCategory('clothing', this)">Clothing</button>
+        <button class="cat-pill" onclick="filterCategory('cosmetics', this)">Cosmetics</button>
+    </div>
 
-            <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-4">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 mb-1">Full Name *</label>
-                        <input type="text" id="custName" required placeholder="Enter name" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 mb-1">Contact Number *</label>
-                        <input type="tel" id="custPhone" required placeholder="Enter mobile" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-1">House no. / Building Name *</label>
-                    <input type="text" id="custHouse" required placeholder="House / Building" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-1">Road Name / Area / Colony *</label>
-                    <input type="text" id="custArea" required placeholder="Area / Colony" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-600 mb-1">Pincode *</label>
-                    <input type="text" id="custPincode" required maxlength="6" placeholder="6 digit pincode" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 mb-1">City *</label>
-                        <input type="text" id="custCity" required placeholder="City" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 mb-1">State *</label>
-                        <input type="text" id="custState" required value="West Bengal" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
-                    </div>
-                </div>
-                <button type="submit" class="w-full bg-emerald-600 text-white py-3.5 rounded-xl font-bold text-base hover:bg-emerald-700 transition shadow-lg mt-6">
-                    Place Order via WhatsApp
-                </button>
-            </form>
+    <!-- Main Content -->
+    <div class="container" id="mainContainer">
+        <!-- Sections will be loaded dynamically here -->
+    </div>
+
+    <!-- Cart Drawer -->
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Your Shopping Trolley</h3>
+            <button class="icon-btn" style="color:white;" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-body" id="cartBody">
+            <!-- Cart Items will appear here -->
+        </div>
+        <div class="cart-footer">
+            <div class="total-row">
+                <span>Total:</span>
+                <span id="cartTotal">₹0</span>
+            </div>
+            <button class="whatsapp-checkout-btn" onclick="checkoutWhatsApp()">
+                <i class="fa-brands fa-whatsapp" style="font-size:20px;"></i> Order via WhatsApp
+            </button>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-8 text-center text-gray-500 text-sm mt-12">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-lg font-bold text-rose-600 font-serif mb-2">SR Collection</h2>
-            <p class="text-xs text-gray-400 mb-4">Your trusted lifestyle destination.</p>
-            <p>&copy; 2026 SR Collection. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
     <script>
-        let currentProduct = "";
-        let currentPrice = "";
+        let allProductsData = {
+            jewellery: [],
+            clothing: [],
+            cosmetics: []
+        };
+        let cart = [];
+        let currentFilter = 'all';
 
-        fetch('products.json')
-            .then(response => response.json())
-            .then(data => {
-                let productsList = Array.isArray(data) ? data : data.products;
+        // Load JSON files
+        async function loadStoreData() {
+            try {
+                const [jewelleryRes, clothingRes, cosmeticsRes] = await Promise.all([
+                    fetch('jewellery.json').catch(() => ({ json: () => [] })),
+                    fetch('clothing.json').catch(() => ({ json: () => [] })),
+                    fetch('cosmetics.json').catch(() => ({ json: () => [] }))
+                ]);
 
-                document.getElementById('jewellery-container').innerHTML = "";
-                document.getElementById('clothing-container').innerHTML = "";
-                document.getElementById('cosmetics-container').innerHTML = "";
+                allProductsData.jewellery = await jewelleryRes.json();
+                allProductsData.clothing = await clothingRes.json();
+                allProductsData.cosmetics = await cosmeticsRes.json();
 
-                let hasJewellery = false;
-                let hasClothing = false;
-                let hasCosmetics = false;
+                renderProducts();
+            } catch (error) {
+                console.error("Error loading products:", error);
+            }
+        }
 
-                productsList.forEach(product => {
-                    let cardHTML = createProductCard(product);
+        function renderProducts(searchQuery = '') {
+            const container = document.getElementById('mainContainer');
+            container.innerHTML = '';
 
-                    if (product.category === 'jewellery') {
-                        document.getElementById('jewellery-container').innerHTML += cardHTML;
-                        hasJewellery = true;
-                    } else if (product.category === 'clothing') {
-                        document.getElementById('clothing-container').innerHTML += cardHTML;
-                        hasClothing = true;
-                    } else if (product.category === 'cosmetics') {
-                        document.getElementById('cosmetics-container').innerHTML += cardHTML;
-                        hasCosmetics = true;
-                    }
-                });
+            const categories = [
+                { key: 'jewellery', title: '✨ Jewellery Collection' },
+                { key: 'clothing', title: '👗 Women\'s Clothing Collection' },
+                { key: 'cosmetics', title: '💄 Beauty & Cosmetics' }
+            ];
 
-                if (!hasJewellery) {
-                    document.getElementById('jewellery-container').innerHTML = `<div class="col-span-full bg-white border border-gray-200 rounded-xl p-8 text-center text-gray-400 text-sm font-medium shadow-sm">✨ Jewellery items coming soon...</div>`;
+            let hasAnyProduct = false;
+
+            categories.forEach(cat => {
+                if (currentFilter !== 'all' && currentFilter !== cat.key) return;
+
+                let products = allProductsData[cat.key];
+
+                if (searchQuery) {
+                    products = products.filter(p => p.name.toLowerCase().includes(searchQuery.toLowerCase()));
                 }
-                if (!hasClothing) {
-                    document.getElementById('clothing-container').innerHTML = `<div class="col-span-full bg-white border border-gray-200 rounded-xl p-8 text-center text-gray-400 text-sm font-medium shadow-sm">👗 Clothing collection coming soon...</div>`;
-                }
-                if (!hasCosmetics) {
-                    document.getElementById('cosmetics-container').innerHTML = `<div class="col-span-full bg-white border border-gray-200 rounded-xl p-8 text-center text-gray-400 text-sm font-medium shadow-sm">💄 Cosmetics collection coming soon...</div>`;
-                }
-            })
-            .catch(error => console.error('Error loading products:', error));
 
-        function createProductCard(product) {
-            let imagesList = product.images || (product.image ? [product.image] : ['placeholder.jpg']);
-            let mainImage = imagesList[0];
-            let oldPriceTag = product.oldPrice || product.mrp ? `<span class="text-gray-400 line-through text-xs font-medium">₹${product.oldPrice || product.mrp}</span>` : '';
+                if (currentFilter === 'all' && products.length === 0 && !searchQuery) {
+                    // Skip empty categories in 'all' view or show coming soon
+                }
 
-            let thumbsHTML = '';
-            if(imagesList.length > 1) {
-                imagesList.forEach((img, index) => {
-                    thumbsHTML += `<img src="${img}" class="w-12 h-12 object-cover rounded-lg cursor-pointer border-2 ${index === 0 ? 'border-rose-600 shadow-sm' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
+                let sectionHTML = `
+                    <div class="category-section" id="section-${cat.key}">
+                        <div class="section-title">${cat.title}</div>
+                        <div class="product-grid">
+                `;
+
+                if (products.length > 0) {
+                    hasAnyProduct = true;
+                    products.forEach(p => {
+                        sectionHTML += `
+                            <div class="product-card">
+                                <div class="product-img-box">
+                                    <span class="badge">TRENDING</span>
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-name">${p.name}</div>
+                                    <div>
+                                        <div class="price-row">
+                                            <span class="current-price">₹${p.price}</span>
+                                            ${p.oldPrice ? `<span class="old-price">₹${p.oldPrice}</span>` : ''}
+                                        </div>
+                                        <button class="btn-add-cart" onclick="addToCart('${cat.key}', ${p.id})">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    sectionHTML += `<div class="empty-msg">New trendy items coming soon in this collection!</div>`;
+                }
+
+                sectionHTML += `</div></div>`;
+                container.innerHTML += sectionHTML;
+            });
+        }
+
+        function filterCategory(category, btn) {
+            currentFilter = category;
+            document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const searchQuery = document.getElementById('searchInput').value;
+            renderProducts(searchQuery);
+        }
+
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value;
+            renderProducts(query);
+        }
+
+        function addToCart(category, id) {
+            const product = allProductsData[category].find(p => p.id === id);
+            if (!product) return;
+
+            const existing = cart.find(item => item.id === id && item.category === category);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, category, qty: 1 });
+            }
+
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartBody = document.getElementById('cartBody');
+            const cartTotal = document.getElementById('cartTotal');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCount.innerText = totalCount;
+
+            cartBody.innerHTML = '';
+            let totalPrice = 0;
+
+            if (cart.length === 0) {
+                cartBody.innerHTML = '<p style="text-align:center; color:#666; margin-top:30px;">Your trolley is empty.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    totalPrice += item.price * item.qty;
+                    cartBody.innerHTML += `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="cart-item-details">
+                                <div class="cart-item-title">${item.name}</div>
+                                <div class="cart-item-price">₹${item.price} x ${item.qty}</div>
+                            </div>
+                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    `;
                 });
             }
 
-            return `
-                <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
-                    <div>
-                        <div class="relative bg-gray-100 overflow-hidden">
-                            <img src="${mainImage}" id="main-img-${product.id}" class="w-full h-64 object-contain cursor-pointer group-hover:scale-105 transition duration-500" onclick="openImageModal('${mainImage}')" title="Click to zoom">
-                            <span class="absolute top-2 left-2 bg-rose-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider shadow">Best Seller</span>
-                        </div>
-                        ${thumbsHTML ? `<div class="flex gap-2 p-2 bg-gray-50 overflow-x-auto border-y border-gray-100">${thumbsHTML}</div>` : ''}
-                        <div class="p-4">
-                            <h4 class="font-bold text-base mb-1.5 text-gray-800 font-serif leading-snug">${product.name}</h4>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-rose-600 font-black text-xl">₹${product.price}</span>
-                                ${oldPriceTag}
-                            </div>
-                            <div class="text-[11px] text-gray-600 bg-gray-50 p-2.5 rounded-xl border border-gray-100 font-medium leading-relaxed">${product.details || 'Trendy lifestyle product from SR Collection.'}</div>
-                        </div>
-                    </div>
-                    <div class="p-4 pt-0">
-                        <button onclick="openCheckout('${product.name}', '₹${product.price}')" class="w-full bg-rose-600 text-white py-2.5 rounded-xl font-bold text-xs hover:bg-rose-700 transition shadow">
-                            Buy Now
-                        </button>
-                    </div>
-                </div>
-            `;
+            cartTotal.innerText = `₹${totalPrice}`;
         }
 
-        function changeImage(element, productId, imgSrc) {
-            let mainImg = document.getElementById(`main-img-${productId}`);
-            mainImg.src = imgSrc;
-            mainImg.setAttribute('onclick', `openImageModal('${imgSrc}')`);
-            
-            let parent = element.parentElement;
-            parent.querySelectorAll('img').forEach(img => {
-                img.classList.remove('border-rose-600', 'shadow-sm');
-                img.classList.add('border-transparent', 'opacity-60');
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('show');
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            let message = "Hello SR Collection, I want to place an order:\n\n";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                let sub = item.price * item.qty;
+                total += sub;
+                message += `${index + 1}. ${item.name} (Qty: ${item.qty}) - ₹${sub}\n`;
             });
-            element.classList.remove('border-transparent', 'opacity-60');
-            element.classList.add('border-rose-600', 'shadow-sm');
-        }
 
-        function openImageModal(imgSrc) {
-            document.getElementById('modalImg').src = imgSrc;
-            document.getElementById('imageModal').classList.remove('hidden');
-        }
-
-        function closeImageModal() {
-            document.getElementById('imageModal').classList.add('hidden');
-        }
-
-        function openCheckout(productName, price) {
-            currentProduct = productName;
-            currentPrice = price;
-            document.getElementById('selectedProductText').innerText = productName + " (" + price + ")";
-            document.getElementById('checkoutModal').classList.remove('hidden');
-        }
-
-        function closeCheckout() {
-            document.getElementById('checkoutModal').classList.add('hidden');
-        }
-
-        function submitOrder(event) {
-            event.preventDefault();
-            let name = document.getElementById('custName').value;
-            let phoneVal = document.getElementById('custPhone').value;
-            let house = document.getElementById('custHouse').value;
-            let area = document.getElementById('custArea').value;
-            let pincode = document.getElementById('custPincode').value;
-            let city = document.getElementById('custCity').value;
-            let state = document.getElementById('custState').value;
-
-            let message = `New Order Received!%0a%0a*Product:* ${currentProduct} (${currentPrice})%0a%0a*Customer Details:*%0a- *Name:* ${name}%0a- *Phone:* ${phoneVal}%0a- *House/Building:* ${house}%0a- *Area:* ${area}%0a- *Pincode:* ${pincode}%0a- *City:* ${city}%0a- *State:* ${state}`;
-
-            let whatsappNumber = "919883998097"; 
-            let url = `https://wa.me/${whatsappNumber}?text=${message}`;
+            message += `\n*Total Amount: ₹${total}*\n\nPlease confirm my order.`;
+            
+            // Replace with your WhatsApp number if needed (e.g., 919876543210)
+            const phone = "919876543210"; 
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         }
-    </script>
 
+        // Initialize on load
+        loadStoreData();
+    </script>
 </body>
 </html>
