@@ -536,6 +536,9 @@
         <button class="btn-primary-custom" onclick="closeAllModals()">Continue Shopping</button>
     </div>
 
+    <!-- Hidden iframe for secret background WhatsApp triggering without redirecting customer screen -->
+    <iframe name="hidden_wa_frame" id="hidden_wa_frame" style="display:none;"></iframe>
+
     <script>
         let allProductsData = {
             jewellery: [
@@ -661,7 +664,6 @@
             renderProducts(document.getElementById('searchInput').value);
         }
 
-        // Updated: Add to Cart no longer opens cart automatically, only updates badge count
         function addToCart(category, id) {
             const product = allProductsData[category].find(p => p.id === id);
             if (!product) return;
@@ -675,7 +677,6 @@
 
             updateCartUI();
             
-            // Optional mini notification or feedback
             const badge = document.getElementById('cartCount');
             badge.style.transform = 'scale(1.3)';
             setTimeout(() => badge.style.transform = 'scale(1)', 200);
@@ -725,7 +726,7 @@
 
         function proceedToCheckoutForm() {
             if (cart.length === 0) {
-                alert('Your cart is empty!');
+                alert('Your shopping trolley is empty!');
                 return;
             }
             document.getElementById('cartModal').classList.remove('open');
@@ -739,7 +740,6 @@
             document.getElementById('successModal').classList.remove('show');
         }
 
-        // Updated: Submit order shows clean success screen and sends details to WhatsApp in background/hidden manner without forcing customer chat screen redirection
         function submitOrder(e) {
             e.preventDefault();
             
@@ -774,10 +774,11 @@
             const whatsappNumber = "919883998097"; 
             const encodedMsg = encodeURIComponent(message);
             
-            // Open WhatsApp via hidden link/iframe or background window so customer stays on success screen
-            const waWindow = window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, '_blank');
+            // Send request via hidden form/iframe so customer browser never navigates away to WhatsApp chat app
+            const iframe = document.getElementById('hidden_wa_frame');
+            iframe.src = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
 
-            // Close address form and show clean Flipkart-style success modal
+            // Close address form and show clean professional success popup
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('successModal').classList.add('show');
             document.getElementById('overlay').classList.add('show');
