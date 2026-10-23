@@ -16,9 +16,10 @@
                     <h1 class="text-2xl font-extrabold tracking-wider text-rose-600 font-serif">SR Collection</h1>
                 </div>
                 <nav class="hidden md:flex space-x-6 font-medium text-sm text-gray-700">
-                    <a href="#products" class="hover:text-rose-600 transition">Collections</a>
+                    <a href="#jewellery-section" class="hover:text-rose-600 transition">Jewellery</a>
+                    <a href="#clothing-section" class="hover:text-rose-600 transition">Clothing</a>
+                    <a href="#cosmetics-section" class="hover:text-rose-600 transition">Cosmetics</a>
                     <a href="#upcoming" class="hover:text-rose-600 transition">Coming Soon</a>
-                    <a href="#feedback" class="hover:text-rose-600 transition">Feedback</a>
                 </nav>
                 <div>
                     <a href="https://wa.me/919883998097" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm hover:bg-emerald-700 transition flex items-center gap-1">
@@ -34,28 +35,46 @@
                 <span class="bg-rose-200 text-rose-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">✨ Elegant & Trendy</span>
                 <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 font-serif leading-tight">Elevate Your Style with Curated Collections</h2>
                 <p class="text-base md:text-lg text-gray-600 mb-8 font-light">Explore stunning artificial jewelry, trendy women's clothing, and beauty essentials crafted for your special moments.</p>
-                <a href="#products" class="bg-rose-600 text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition inline-block">Explore Collection</a>
+                <a href="#jewellery-section" class="bg-rose-600 text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition inline-block">Explore Collections</a>
             </div>
         </section>
 
-        <!-- Products Section -->
-        <section id="products" class="max-w-7xl mx-auto px-4 py-12">
-            <div class="text-center mb-10">
-                <h3 class="text-3xl font-extrabold text-gray-800 font-serif">Featured Masterpieces</h3>
-                <p class="text-sm text-gray-500 mt-1">Handpicked designs to match your everyday and party elegance</p>
+        <!-- 1. Jewellery Section -->
+        <section id="jewellery-section" class="max-w-7xl mx-auto px-4 py-12">
+            <div class="border-b border-rose-200 pb-4 mb-8 flex justify-between items-center">
+                <div>
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-gray-800 font-serif">✨ Jewellery Collection</h3>
+                    <p class="text-sm text-gray-500 mt-1">Exquisite choker sets, mangalsutra combos, and traditional designs</p>
+                </div>
             </div>
-            
-            <!-- Category Filter Tabs -->
-            <div class="flex justify-center gap-3 my-6 overflow-x-auto px-4 py-2">
-                <button onclick="filterCategory('all')" id="btn-all" class="px-5 py-2.5 bg-rose-600 text-white rounded-full text-sm font-bold shadow-md transition">All Products</button>
-                <button onclick="filterCategory('jewellery')" id="btn-jewellery" class="px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition">✨ Jewellery</button>
-                <button onclick="filterCategory('clothing')" id="btn-clothing" class="px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition">👗 Clothing</button>
-                <button onclick="filterCategory('cosmetics')" id="btn-cosmetics" class="px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition">💄 Cosmetics</button>
+            <div id="jewellery-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Jewellery products will load here -->
             </div>
+        </section>
 
-            <!-- Dynamic Products Container -->
-            <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
-                <!-- Products will load dynamically from products.json -->
+        <!-- 2. Clothing Section -->
+        <section id="clothing-section" class="max-w-7xl mx-auto px-4 py-12 border-t border-rose-100">
+            <div class="border-b border-rose-200 pb-4 mb-8 flex justify-between items-center">
+                <div>
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-gray-800 font-serif">👗 Women's Clothing</h3>
+                    <p class="text-sm text-gray-500 mt-1">Trendy ethnic wear, party-wear kurtis, and daily fashion</p>
+                </div>
+            </div>
+            <div id="clothing-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Clothing products will load here -->
+            </div>
+        </section>
+
+        <!-- 3. Cosmetics Section -->
+        <section id="cosmetics-section" class="max-w-7xl mx-auto px-4 py-12 border-t border-rose-100">
+            <div class="border-b border-rose-200 pb-4 mb-8 flex justify-between items-center">
+                <div>
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-gray-800 font-serif">💄 Beauty & Cosmetics</h3>
+                    <p class="text-sm text-gray-500 mt-1">Professional matte lipsticks, makeup combos, and beauty essentials</p>
+                </div>
+            </div>
+            <div id="cosmetics-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Cosmetics products will load here -->
             </div>
         </section>
 
@@ -160,53 +179,72 @@
     <footer class="bg-white border-t border-rose-100 py-8 text-center text-gray-500 text-sm mt-12">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-lg font-bold text-rose-600 font-serif mb-2">SR Collection</h2>
-            <p class="text-xs text-gray-400 mb-4">Your trusted destination for premium lifestyle products, jewellery, clothing & cosmetics.</p>
+            <p class="text-xs text-gray-400 mb-4">Your trusted destination for lifestyle products, jewellery, clothing & cosmetics.</p>
             <p>&copy; 2026 SR Collection. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- JavaScript for Multi-Category Fetching, Filtering & Ordering -->
+    <!-- JavaScript for Loading Products into Separate Category Sections -->
     <script>
-        let allProducts = [];
         let currentProduct = "";
         let currentPrice = "";
 
-        // Fetch products from JSON
         fetch('products.json')
             .then(response => response.json())
             .then(data => {
-                // Support both array structure or new multi-category structure
-                allProducts = Array.isArray(data) ? data : data.products;
-                displayProducts(allProducts);
+                let productsList = Array.isArray(data) ? data : data.products;
+
+                // Clear all containers first
+                document.getElementById('jewellery-container').innerHTML = "";
+                document.getElementById('clothing-container').innerHTML = "";
+                document.getElementById('cosmetics-container').innerHTML = "";
+
+                let hasJewellery = false;
+                let hasClothing = false;
+                let hasCosmetics = false;
+
+                productsList.forEach(product => {
+                    let cardHTML = createProductCard(product);
+
+                    if (product.category === 'jewellery') {
+                        document.getElementById('jewellery-container').innerHTML += cardHTML;
+                        hasJewellery = true;
+                    } else if (product.category === 'clothing') {
+                        document.getElementById('clothing-container').innerHTML += cardHTML;
+                        hasClothing = true;
+                    } else if (product.category === 'cosmetics') {
+                        document.getElementById('cosmetics-container').innerHTML += cardHTML;
+                        hasCosmetics = true;
+                    }
+                });
+
+                // Show empty messages if no products in a section
+                if (!hasJewellery) {
+                    document.getElementById('jewellery-container').innerHTML = `<p class="col-span-full text-gray-400 text-sm italic py-4">New jewellery pieces coming soon...</p>`;
+                }
+                if (!hasClothing) {
+                    document.getElementById('clothing-container').innerHTML = `<p class="col-span-full text-gray-400 text-sm italic py-4">New clothing items coming soon...</p>`;
+                }
+                if (!hasCosmetics) {
+                    document.getElementById('cosmetics-container').innerHTML = `<p class="col-span-full text-gray-400 text-sm italic py-4">New cosmetics items coming soon...</p>`;
+                }
             })
             .catch(error => console.error('Error loading products:', error));
 
-        function displayProducts(productsToDisplay) {
-            const container = document.getElementById('product-container');
-            container.innerHTML = "";
+        function createProductCard(product) {
+            let imagesList = product.images || (product.image ? [product.image] : ['placeholder.jpg']);
+            let mainImage = imagesList[0];
+            let oldPriceTag = product.oldPrice || product.mrp ? `<span class="text-gray-400 line-through text-sm font-medium">₹${product.oldPrice || product.mrp}</span>` : '';
 
-            if (!productsToDisplay || productsToDisplay.length === 0) {
-                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">No products found in this category.</p>`;
-                return;
+            let thumbsHTML = '';
+            if(imagesList.length > 1) {
+                imagesList.forEach((img, index) => {
+                    thumbsHTML += `<img src="${img}" class="w-12 h-12 object-cover rounded-lg cursor-pointer border-2 ${index === 0 ? 'border-rose-600 shadow-sm' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
+                });
             }
 
-            productsToDisplay.forEach(product => {
-                let thumbsHTML = '';
-                // Check if product has multiple images or a single image string
-                let imagesList = product.images || (product.image ? [product.image] : []);
-                
-                if(imagesList.length > 1) {
-                    imagesList.forEach((img, index) => {
-                        thumbsHTML += `<img src="${img}" class="w-14 h-14 object-cover rounded-lg cursor-pointer border-2 ${index === 0 ? 'border-rose-600 shadow-sm' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
-                    });
-                }
-
-                let mainImage = imagesList.length > 0 ? imagesList[0] : 'placeholder.jpg';
-                let oldPriceTag = product.oldPrice || product.mrp ? `<span class="text-gray-400 line-through text-sm font-medium">₹${product.oldPrice || product.mrp}</span>` : '';
-
-                let card = document.createElement('div');
-                card.className = "bg-white border border-rose-100/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
-                card.innerHTML = `
+            return `
+                <div class="bg-white border border-rose-100/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="relative bg-gray-50 overflow-hidden">
                             <img src="${mainImage}" id="main-img-${product.id}" class="w-full h-72 object-contain cursor-pointer group-hover:scale-105 transition duration-500" onclick="openImageModal('${mainImage}')" title="Click to zoom">
@@ -227,31 +265,8 @@
                             Buy Now
                         </button>
                     </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        // Category Filtering Function
-        function filterCategory(categoryName) {
-            // Update button styles active/inactive
-            ['all', 'jewellery', 'clothing', 'cosmetics'].forEach(cat => {
-                let btn = document.getElementById(`btn-${cat}`);
-                if (btn) {
-                    if (cat === categoryName) {
-                        btn.className = "px-5 py-2.5 bg-rose-600 text-white rounded-full text-sm font-bold shadow-md transition";
-                    } else {
-                        btn.className = "px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition";
-                    }
-                }
-            });
-
-            if (categoryName === 'all') {
-                displayProducts(allProducts);
-            } else {
-                let filtered = allProducts.filter(p => p.category === categoryName);
-                displayProducts(filtered);
-            }
+                </div>
+            `;
         }
 
         function changeImage(element, productId, imgSrc) {
