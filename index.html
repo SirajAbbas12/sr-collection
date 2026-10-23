@@ -264,6 +264,10 @@
             font-size: 11px;
             color: var(--text-muted);
             margin-bottom: 8px;
+            background: #fff9f5;
+            padding: 8px;
+            border-radius: 6px;
+            border-left: 2px solid var(--accent);
         }
 
         .more-details-btn {
@@ -415,11 +419,11 @@
             background: #fff;
         }
 
-        /* Animated Success Popup Modal */
+        /* Smooth Animated Success Popup Modal */
         .success-modal {
             position: fixed;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.7);
+            transform: translate(-50%, -50%) scale(0.5);
             background: var(--white);
             padding: 30px;
             border-radius: var(--radius);
@@ -431,7 +435,7 @@
             display: none;
             opacity: 0;
             border: 2px solid var(--accent);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .success-modal.show {
             display: block;
@@ -442,7 +446,7 @@
         .success-modal h3 { font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 10px; }
         .success-modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
 
-        /* Lightbox Image Zoom Modal */
+        /* Lightbox Zoom Modal */
         .lightbox-modal {
             position: fixed;
             top: 0; left: 0;
@@ -569,12 +573,12 @@
         </div>
     </div>
 
-    <!-- Animated Success Popup Modal -->
+    <!-- Animated Success Popup Modal with Confirm Order Button -->
     <div class="success-modal" id="successModal">
         <i class="fa-solid fa-circle-check"></i>
         <h3>Order Placed Successfully!</h3>
-        <p>Thank you for shopping with SR Collection. Your order has been confirmed successfully.</p>
-        <button class="btn-primary-custom" onclick="closeAllModals()">Continue Shopping</button>
+        <p>Thank you for shopping with SR Collection. Click below to confirm and dispatch your order to WhatsApp.</p>
+        <button class="btn-primary-custom" onclick="sendOrderToWhatsAppAndClose()">Confirm Order</button>
     </div>
 
     <!-- Lightbox Zoom Modal -->
@@ -582,9 +586,6 @@
         <button class="lightbox-close">&times;</button>
         <img id="lightboxImg" src="" alt="Zoomed view">
     </div>
-
-    <!-- Hidden iframe for background WhatsApp triggering -->
-    <iframe name="hidden_wa_frame" id="hidden_wa_frame" style="display:none;"></iframe>
 
     <script>
         let allProductsData = {
@@ -612,8 +613,9 @@
 
         let cart = [];
         let currentFilter = 'all';
+        let pendingWhatsAppUrl = '';
 
-        // Load saved address on startup if available
+        // Load saved address on startup
         window.onload = function() {
             if(localStorage.getItem('sr_name')) document.getElementById('custName').value = localStorage.getItem('sr_name');
             if(localStorage.getItem('sr_phone')) document.getElementById('custPhone').value = localStorage.getItem('sr_phone');
@@ -654,7 +656,7 @@
                         let sliderButtons = '';
                         
                         if (p.images.length > 1) {
-                            let imgs = p.images.map((img, idx) => `<img src="${img}" alt="${p.name}" onclick="openLightbox('${img}')" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">`).join('');
+                            let imgs = p.images.map((img) => `<img src="${img}" alt="${p.name}" onclick="openLightbox('${img}')" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">`).join('');
                             imgHtml = `<div class="slider-track" id="slider-${cat.key}-${p.id}">${imgs}</div>`;
                             sliderButtons = `
                                 <button class="slider-btn prev" onclick="event.stopPropagation(); moveSlide('${cat.key}', ${p.id}, -1)">❮</button>
@@ -674,8 +676,8 @@
                                 <div class="product-info">
                                     <div>
                                         <div class="product-name">${p.name}</div>
-                                        <button class="more-details-btn" onclick="toggleDetails(${p.id})">More Details</button>
-                                        <div class="product-desc" id="desc-${p.id}" style="display:none;">${p.details}</div>
+                                        <button class="more-details-btn" onclick="toggleDetails('${cat.key}', ${p.id})">More Details</button>
+                                        <div class="product-desc" id="desc-${cat.key}-${p.id}" style="display:none;">${p.details}</div>
                                     </div>
                                     <div>
                                         <div class="price-row">
@@ -697,8 +699,9 @@
             });
         }
 
-        function toggleDetails(id) {
-            const desc = document.getElementById(`desc-${id}`);
+        // Unique toggle for each product to prevent overlapping toggles
+        function toggleDetails(category, id) {
+            const desc = document.getElementById(`desc-${category}-${id}`);
             if (desc.style.display === 'none') {
                 desc.style.display = 'block';
             } else {
@@ -828,7 +831,7 @@
             const city = document.getElementById('custCity').value;
             const state = document.getElementById('custState').value;
 
-            // Save address to LocalStorage for future visits
+            // Save address to LocalStorage
             localStorage.setItem('sr_name', name);
             localStorage.setItem('sr_phone', phone);
             localStorage.setItem('sr_house', house);
@@ -860,17 +863,23 @@
             const whatsappNumber = "919876543210"; 
             const encodedMsg = encodeURIComponent(message);
             
-            // Background WhatsApp dispatch
-            const iframe = document.getElementById('hidden_wa_frame');
-            iframe.src = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+            // Store the whatsapp link to open upon clicking "Confirm Order" inside popup
+            pendingWhatsAppUrl = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
 
-            // Show animated success popup
+            // Close address form and show smooth animated success popup
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('successModal').classList.add('show');
             document.getElementById('overlay').classList.add('show');
 
             cart = [];
             updateCartUI();
+        }
+
+        function sendOrderToWhatsAppAndClose() {
+            if (pendingWhatsAppUrl) {
+                window.open(pendingWhatsAppUrl, '_blank');
+            }
+            closeAllModals();
         }
 
         renderProducts();
