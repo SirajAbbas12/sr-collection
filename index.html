@@ -16,9 +16,10 @@
                     <h1 class="text-2xl font-extrabold tracking-wider text-rose-600 font-serif">SR Collection</h1>
                 </div>
                 <nav class="hidden md:flex space-x-6 font-medium text-sm text-gray-700">
-                    <a href="#products" class="hover:text-rose-600 transition">Collections</a>
+                    <a href="#jewellery-section" class="hover:text-rose-600 transition">Jewellery</a>
+                    <a href="#clothing-section" class="hover:text-rose-600 transition">Clothing</a>
+                    <a href="#cosmetics-section" class="hover:text-rose-600 transition">Cosmetics</a>
                     <a href="#upcoming" class="hover:text-rose-600 transition">Coming Soon</a>
-                    <a href="#feedback" class="hover:text-rose-600 transition">Feedback</a>
                 </nav>
                 <div>
                     <a href="https://wa.me/919883998097" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm hover:bg-emerald-700 transition flex items-center gap-1">
@@ -33,33 +34,45 @@
             <div class="max-w-3xl mx-auto">
                 <span class="bg-rose-200 text-rose-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">✨ Elegant & Trendy</span>
                 <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 font-serif leading-tight">Elevate Your Style with Curated Collections</h2>
-                <p class="text-base md:text-lg text-gray-600 mb-8 font-light">Explore stunning artificial jewelry, trendy women's clothing, and beauty essentials crafted for your special moments.</p>
-                <a href="#products" class="bg-rose-600 text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition inline-block">Explore Collection</a>
+                <p class="text-base md:text-lg text-gray-600 mb-8 font-light">Explore separate sections for artificial jewelry, trendy women's clothing, and beauty essentials.</p>
+                <a href="#jewellery-section" class="bg-rose-600 text-white px-8 py-3.5 rounded-xl font-bold text-base shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition inline-block">Explore Sections</a>
             </div>
         </section>
 
-        <!-- Products Section with Category Filter Buttons -->
-        <section id="products" class="max-w-7xl mx-auto px-4 py-12">
-            <div class="text-center mb-6">
-                <h3 class="text-3xl font-extrabold text-gray-800 font-serif">Featured Masterpieces</h3>
-                <p class="text-sm text-gray-500 mt-1">Handpicked designs to match your everyday and party elegance</p>
+        <!-- 1. Jewellery Section -->
+        <section id="jewellery-section" class="max-w-7xl mx-auto px-4 py-12">
+            <div class="border-b border-rose-200 pb-4 mb-8">
+                <h3 class="text-2xl md:text-3xl font-extrabold text-gray-800 font-serif">✨ Jewellery Collection</h3>
+                <p class="text-sm text-gray-500 mt-1">Exquisite choker sets, mangalsutra combos, and traditional artificial jewellery</p>
             </div>
-            
-            <!-- Category Filter Buttons -->
-            <div class="flex justify-center gap-3 my-6 overflow-x-auto px-4 py-2">
-                <button onclick="filterCategory('all')" id="btn-all" class="px-5 py-2.5 bg-rose-600 text-white rounded-full text-sm font-bold shadow-md transition">All Products</button>
-                <button onclick="filterCategory('jewellery')" id="btn-jewellery" class="px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition">✨ Jewellery</button>
-                <button onclick="filterCategory('clothing')" id="btn-clothing" class="px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition">👗 Clothing</button>
-                <button onclick="filterCategory('cosmetics')" id="btn-cosmetics" class="px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition">💄 Cosmetics</button>
-            </div>
-
-            <!-- Dynamic Products Container -->
-            <div id="product-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
-                <!-- Products will load dynamically from products.json -->
+            <div id="jewellery-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Jewellery products will load here -->
             </div>
         </section>
 
-        <!-- Coming Soon / Upcoming Collections Section -->
+        <!-- 2. Clothing Section -->
+        <section id="clothing-section" class="max-w-7xl mx-auto px-4 py-12 border-t border-rose-100">
+            <div class="border-b border-rose-200 pb-4 mb-8">
+                <h3 class="text-2xl md:text-3xl font-extrabold text-gray-800 font-serif">👗 Women's Clothing</h3>
+                <p class="text-sm text-gray-500 mt-1">Trendy ethnic wear, party-wear kurtis, and daily fashion</p>
+            </div>
+            <div id="clothing-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Clothing products will load here -->
+            </div>
+        </section>
+
+        <!-- 3. Cosmetics Section -->
+        <section id="cosmetics-section" class="max-w-7xl mx-auto px-4 py-12 border-t border-rose-100">
+            <div class="border-b border-rose-200 pb-4 mb-8">
+                <h3 class="text-2xl md:text-3xl font-extrabold text-gray-800 font-serif">💄 Beauty & Cosmetics</h3>
+                <p class="text-sm text-gray-500 mt-1">Professional matte lipsticks, makeup combos, and beauty essentials</p>
+            </div>
+            <div id="cosmetics-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Cosmetics products will load here -->
+            </div>
+        </section>
+
+        <!-- Coming Soon Section -->
         <section id="upcoming" class="max-w-7xl mx-auto px-4 py-12 border-t border-rose-100 my-8">
             <div class="bg-gradient-to-r from-rose-900 to-pink-900 rounded-3xl p-8 md:p-12 text-white text-center shadow-xl relative overflow-hidden">
                 <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-rose-600/20 rounded-full blur-2xl"></div>
@@ -81,13 +94,13 @@
                 <form action="https://formspree.io/f/xljgqoae" method="POST" class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 mb-1">Your Email *</label>
-                        <input type="email" name="email" required placeholder="Enter your email address" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500">
+                        <input type="email" name="email" required placeholder="Enter your email address" class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 mb-1">Your Message *</label>
-                        <textarea name="message" rows="4" required placeholder="Write your feedback or query here..." class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500"></textarea>
+                        <textarea name="message" rows="4" required placeholder="Write your feedback or query here..." class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500"></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-rose-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-rose-700 transition shadow-md shadow-rose-600/20">
+                    <button type="submit" class="w-full bg-rose-600 text-white py-3 rounded-xl font-bold text-sm hover:bg-rose-700 transition shadow-md">
                         Send Feedback
                     </button>
                 </form>
@@ -103,7 +116,7 @@
         </div>
     </div>
 
-    <!-- Checkout Modal (Meesho Address Style) -->
+    <!-- Checkout Modal -->
     <div id="checkoutModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl border border-rose-100">
             <button onclick="closeCheckout()" class="absolute top-5 right-5 text-gray-400 hover:text-gray-600 text-2xl font-light">&times;</button>
@@ -122,22 +135,18 @@
                         <input type="tel" id="custPhone" required placeholder="Enter mobile number" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                     </div>
                 </div>
-
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">House no. / Building Name *</label>
-                    <input type="text" id="custHouse" required placeholder="House no. / nearest building or landmark" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
+                    <input type="text" id="custHouse" required placeholder="House no. / nearest building" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                 </div>
-
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Road Name / Area / Colony *</label>
-                    <input type="text" id="custArea" required placeholder="Road, area, village/city, post office" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
+                    <input type="text" id="custArea" required placeholder="Road, area, city, post office" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                 </div>
-
                 <div>
                     <label class="block text-xs font-semibold text-gray-600 mb-1">Pincode *</label>
                     <input type="text" id="custPincode" required maxlength="6" placeholder="Enter 6 digit Pincode" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                 </div>
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 mb-1">City *</label>
@@ -145,12 +154,11 @@
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 mb-1">State *</label>
-                        <input type="text" id="custState" required placeholder="Enter your state" value="West Bengal" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
+                        <input type="text" id="custState" required value="West Bengal" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:border-rose-500">
                     </div>
                 </div>
-
-                <button type="submit" class="w-full bg-emerald-600 text-white py-3.5 rounded-xl font-bold text-base hover:bg-emerald-700 transition shadow-lg shadow-emerald-600/20 mt-6 flex items-center justify-center gap-2">
-                    <span>Place Order via WhatsApp</span>
+                <button type="submit" class="w-full bg-emerald-600 text-white py-3.5 rounded-xl font-bold text-base hover:bg-emerald-700 transition shadow-lg mt-6">
+                    Place Order via WhatsApp
                 </button>
             </form>
         </div>
@@ -165,44 +173,65 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Category Filter & Dynamic Loading -->
+    <!-- JavaScript to Render Products into Separate Category Sections -->
     <script>
-        let allProducts = [];
         let currentProduct = "";
         let currentPrice = "";
 
         fetch('products.json')
             .then(response => response.json())
             .then(data => {
-                allProducts = Array.isArray(data) ? data : data.products;
-                displayProducts(allProducts);
+                let productsList = Array.isArray(data) ? data : data.products;
+
+                document.getElementById('jewellery-container').innerHTML = "";
+                document.getElementById('clothing-container').innerHTML = "";
+                document.getElementById('cosmetics-container').innerHTML = "";
+
+                let hasJewellery = false;
+                let hasClothing = false;
+                let hasCosmetics = false;
+
+                productsList.forEach(product => {
+                    let cardHTML = createProductCard(product);
+
+                    if (product.category === 'jewellery') {
+                        document.getElementById('jewellery-container').innerHTML += cardHTML;
+                        hasJewellery = true;
+                    } else if (product.category === 'clothing') {
+                        document.getElementById('clothing-container').innerHTML += cardHTML;
+                        hasClothing = true;
+                    } else if (product.category === 'cosmetics') {
+                        document.getElementById('cosmetics-container').innerHTML += cardHTML;
+                        hasCosmetics = true;
+                    }
+                });
+
+                if (!hasJewellery) {
+                    document.getElementById('jewellery-container').innerHTML = `<p class="col-span-full text-gray-400 text-sm italic py-4">New jewellery pieces coming soon...</p>`;
+                }
+                if (!hasClothing) {
+                    document.getElementById('clothing-container').innerHTML = `<p class="col-span-full text-gray-400 text-sm italic py-4">New clothing items coming soon...</p>`;
+                }
+                if (!hasCosmetics) {
+                    document.getElementById('cosmetics-container').innerHTML = `<p class="col-span-full text-gray-400 text-sm italic py-4">New cosmetics items coming soon...</p>`;
+                }
             })
             .catch(error => console.error('Error loading products:', error));
 
-        function displayProducts(productsToDisplay) {
-            const container = document.getElementById('product-container');
-            container.innerHTML = "";
+        function createProductCard(product) {
+            let imagesList = product.images || (product.image ? [product.image] : ['placeholder.jpg']);
+            let mainImage = imagesList[0];
+            let oldPriceTag = product.oldPrice || product.mrp ? `<span class="text-gray-400 line-through text-sm font-medium">₹${product.oldPrice || product.mrp}</span>` : '';
 
-            if (!productsToDisplay || productsToDisplay.length === 0) {
-                container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">No products found in this category.</p>`;
-                return;
+            let thumbsHTML = '';
+            if(imagesList.length > 1) {
+                imagesList.forEach((img, index) => {
+                    thumbsHTML += `<img src="${img}" class="w-12 h-12 object-cover rounded-lg cursor-pointer border-2 ${index === 0 ? 'border-rose-600 shadow-sm' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
+                });
             }
 
-            productsToDisplay.forEach(product => {
-                let imagesList = product.images || (product.image ? [product.image] : ['placeholder.jpg']);
-                let mainImage = imagesList[0];
-                let oldPriceTag = product.oldPrice || product.mrp ? `<span class="text-gray-400 line-through text-sm font-medium">₹${product.oldPrice || product.mrp}</span>` : '';
-
-                let thumbsHTML = '';
-                if(imagesList.length > 1) {
-                    imagesList.forEach((img, index) => {
-                        thumbsHTML += `<img src="${img}" class="w-14 h-14 object-cover rounded-lg cursor-pointer border-2 ${index === 0 ? 'border-rose-600 shadow-sm' : 'border-transparent opacity-60'} hover:opacity-100 transition" onclick="changeImage(this, ${product.id}, '${img}')">`;
-                    });
-                }
-
-                let card = document.createElement('div');
-                card.className = "bg-white border border-rose-100/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
-                card.innerHTML = `
+            return `
+                <div class="bg-white border border-rose-100/80 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="relative bg-gray-50 overflow-hidden">
                             <img src="${mainImage}" id="main-img-${product.id}" class="w-full h-72 object-contain cursor-pointer group-hover:scale-105 transition duration-500" onclick="openImageModal('${mainImage}')" title="Click to zoom">
@@ -215,7 +244,7 @@
                                 <span class="text-rose-600 font-extrabold text-2xl">₹${product.price}</span>
                                 ${oldPriceTag}
                             </div>
-                            <div class="text-xs text-gray-600 bg-rose-50/50 p-3 rounded-xl border border-rose-100 font-medium leading-relaxed">${product.details || 'Trendy high-quality lifestyle product from SR Collection.'}</div>
+                            <div class="text-xs text-gray-600 bg-rose-50/50 p-3 rounded-xl border border-rose-100 font-medium leading-relaxed">${product.details || 'Trendy lifestyle product from SR Collection.'}</div>
                         </div>
                     </div>
                     <div class="p-5 pt-0">
@@ -223,29 +252,8 @@
                             Buy Now
                         </button>
                     </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function filterCategory(categoryName) {
-            ['all', 'jewellery', 'clothing', 'cosmetics'].forEach(cat => {
-                let btn = document.getElementById(`btn-${cat}`);
-                if (btn) {
-                    if (cat === categoryName) {
-                        btn.className = "px-5 py-2.5 bg-rose-600 text-white rounded-full text-sm font-bold shadow-md transition";
-                    } else {
-                        btn.className = "px-5 py-2.5 bg-white text-gray-700 border border-rose-200 rounded-full text-sm font-semibold shadow-sm hover:bg-rose-50 transition";
-                    }
-                }
-            });
-
-            if (categoryName === 'all') {
-                displayProducts(allProducts);
-            } else {
-                let filtered = allProducts.filter(p => p.category === categoryName);
-                displayProducts(filtered);
-            }
+                </div>
+            `;
         }
 
         function changeImage(element, productId, imgSrc) {
@@ -286,7 +294,7 @@
             event.preventDefault();
             
             let name = document.getElementById('custName').value;
-            let phoneVal = document.getElementById('custPhone').value;
+            let phoneVal = document.getElementById('custPhone'].value;
             let house = document.getElementById('custHouse').value;
             let area = document.getElementById('custArea').value;
             let pincode = document.getElementById('custPincode').value;
