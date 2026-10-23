@@ -1,23 +1,33 @@
-[
-  {
-    "id": 1,
-    "name": "Diksha Collection Diva Fancy Diamond Gold-Plated Finish Jewellery Set (Pack of 2)",
-    "price": "₹257",
-    "oldPrice": "₹599",
-    "details": "Stone Type: Pearls | Plating: Gold Plated | Net Qty: 2 (Necklace & Earrings) | Base Metal: Alloy",
-    "images": [
-      "https://raw.githubusercontent.com/SirajAbbas12/sr-collection/main/1792616459138.png"
-    ]
-  },
-  {
-    "id": 2,
-    "name": "Gold Plated Traditional Mangalsutra Bangle Combo Set for Women Floral Pendant",
-    "price": "₹377",
-    "oldPrice": "₹799",
-    "details": "Plating: Gold Plated | Type: Mangalsutra Set | Net Qty: 1 | Base Metal: Brass | Sizing: Adjustable | Occasion: Ethnic Party",
-    "images": [
-      "https://raw.githubusercontent.com/SirajAbbas12/sr-collection/main/1792674653870.png",
-      "https://raw.githubusercontent.com/SirajAbbas12/sr-collection/main/1792674711363.png"
-    ]
-  }
-]
+{
+  "categories": [
+    { "id": "jewellery", "name": "✨ Jewellery" },
+    { "id": "clothing", "name": "👗 Women's Clothing" },
+    { "id": "cosmetics", "name": "💄 Beauty & Cosmetics" }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "category": "jewellery",
+      "name": "Traditional Gold-Plated Mangalsutra & Bangle Combo",
+      "price": 377,
+      "mrp": 799,
+      "image": "product1.jpg"
+    },
+    {
+      "id": 2,
+      "category": "clothing",
+      "name": "Designer Ethnic Party Wear Kurti",
+      "price": 499,
+      "mrp": 999,
+      "image": "kurti1.jpg"
+    },
+    {
+      "id": 3,
+      "category": "cosmetics",
+      "name": "Professional Matte Liquid Lipstick Combo",
+      "price": 299,
+      "mrp": 699,
+      "image": "lipstick1.jpg"
+    }
+  ]
+}
