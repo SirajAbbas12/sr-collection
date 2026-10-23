@@ -190,6 +190,7 @@
             height: 180px;
             background: #f7f7f7;
             overflow: hidden;
+            cursor: pointer;
         }
 
         @media(min-width: 768px) {
@@ -263,10 +264,18 @@
             font-size: 11px;
             color: var(--text-muted);
             margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+        }
+
+        .more-details-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 8px;
+            text-decoration: underline;
         }
 
         .price-row {
@@ -406,11 +415,11 @@
             background: #fff;
         }
 
-        /* Success Popup Modal */
+        /* Animated Success Popup Modal */
         .success-modal {
             position: fixed;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
+            transform: translate(-50%, -50%) scale(0.7);
             background: var(--white);
             padding: 30px;
             border-radius: var(--radius);
@@ -420,12 +429,44 @@
             max-width: 360px;
             width: 90%;
             display: none;
+            opacity: 0;
             border: 2px solid var(--accent);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .success-modal.show { display: block; transform: translate(-50%, -50%) scale(1); transition: all 0.3s ease; }
+        .success-modal.show {
+            display: block;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
         .success-modal i { font-size: 48px; color: #28a745; margin-bottom: 15px; }
         .success-modal h3 { font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 10px; }
         .success-modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+
+        /* Lightbox Image Zoom Modal */
+        .lightbox-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1200;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .lightbox-modal.show { display: flex; }
+        .lightbox-modal img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            border: 2px solid var(--accent);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 25px;
+            color: white; font-size: 32px;
+            background: none; border: none; cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -523,18 +564,23 @@
                         </select>
                     </div>
                 </div>
-                <!-- Clean & Easy Button Label -->
                 <button type="submit" class="btn-primary-custom">Place Order</button>
             </form>
         </div>
     </div>
 
-    <!-- Success Popup Modal -->
+    <!-- Animated Success Popup Modal -->
     <div class="success-modal" id="successModal">
         <i class="fa-solid fa-circle-check"></i>
         <h3>Order Placed Successfully!</h3>
         <p>Thank you for shopping with SR Collection. Your order has been confirmed successfully.</p>
         <button class="btn-primary-custom" onclick="closeAllModals()">Continue Shopping</button>
+    </div>
+
+    <!-- Lightbox Zoom Modal -->
+    <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox()">
+        <button class="lightbox-close">&times;</button>
+        <img id="lightboxImg" src="" alt="Zoomed view">
     </div>
 
     <!-- Hidden iframe for background WhatsApp triggering -->
@@ -545,11 +591,11 @@
             jewellery: [
                 {
                     id: 1,
-                    name: "Traditional Gold-Plated Mangalsutra Combo",
+                    name: "Traditional Gold-Plated Mangalsutra & Bangle Combo",
                     price: 377,
                     oldPrice: 799,
                     images: ["1792674711363.png", "1792674653870.png"],
-                    details: "Traditional high-quality gold plated mangalsutra and bangle combo set."
+                    details: "✨ COMBO HIGHLIGHT: Premium gold-plated traditional mangalsutra paired with elegant matching bangles. High durability, skin-friendly finish, perfect for daily wear and festive occasions."
                 },
                 {
                     id: 2,
@@ -557,7 +603,7 @@
                     price: 450,
                     oldPrice: 999,
                     images: ["1792616459138.png"],
-                    details: "Exclusive peacock design gold plated choker necklace set with matching earrings."
+                    details: "✨ TRENDING: Exclusive peacock design gold plated choker necklace set complete with matching designer earrings. Exquisite craftsmanship."
                 }
             ],
             clothing: [],
@@ -566,6 +612,17 @@
 
         let cart = [];
         let currentFilter = 'all';
+
+        // Load saved address on startup if available
+        window.onload = function() {
+            if(localStorage.getItem('sr_name')) document.getElementById('custName').value = localStorage.getItem('sr_name');
+            if(localStorage.getItem('sr_phone')) document.getElementById('custPhone').value = localStorage.getItem('sr_phone');
+            if(localStorage.getItem('sr_house')) document.getElementById('custHouse').value = localStorage.getItem('sr_house');
+            if(localStorage.getItem('sr_area')) document.getElementById('custArea').value = localStorage.getItem('sr_area');
+            if(localStorage.getItem('sr_pincode')) document.getElementById('custPincode').value = localStorage.getItem('sr_pincode');
+            if(localStorage.getItem('sr_city')) document.getElementById('custCity').value = localStorage.getItem('sr_city');
+            if(localStorage.getItem('sr_state')) document.getElementById('custState').value = localStorage.getItem('sr_state');
+        };
 
         function renderProducts(searchQuery = '') {
             const container = document.getElementById('mainContainer');
@@ -597,27 +654,28 @@
                         let sliderButtons = '';
                         
                         if (p.images.length > 1) {
-                            let imgs = p.images.map(img => `<img src="${img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">`).join('');
+                            let imgs = p.images.map((img, idx) => `<img src="${img}" alt="${p.name}" onclick="openLightbox('${img}')" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">`).join('');
                             imgHtml = `<div class="slider-track" id="slider-${cat.key}-${p.id}">${imgs}</div>`;
                             sliderButtons = `
-                                <button class="slider-btn prev" onclick="moveSlide('${cat.key}', ${p.id}, -1)">❮</button>
-                                <button class="slider-btn next" onclick="moveSlide('${cat.key}', ${p.id}, 1)">❯</button>
+                                <button class="slider-btn prev" onclick="event.stopPropagation(); moveSlide('${cat.key}', ${p.id}, -1)">❮</button>
+                                <button class="slider-btn next" onclick="event.stopPropagation(); moveSlide('${cat.key}', ${p.id}, 1)">❯</button>
                             `;
                         } else {
-                            imgHtml = `<div class="slider-track"><img src="${p.images[0]}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'"></div>`;
+                            imgHtml = `<div class="slider-track"><img src="${p.images[0]}" alt="${p.name}" onclick="openLightbox('${p.images[0]}')" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'"></div>`;
                         }
 
                         sectionHTML += `
                             <div class="product-card">
-                                <div class="product-img-box">
-                                    <span class="badge">TRENDING</span>
+                                <div class="product-img-box" title="Click to Zoom Image">
+                                    <span class="badge">COMBO / TRENDING</span>
                                     ${imgHtml}
                                     ${sliderButtons}
                                 </div>
                                 <div class="product-info">
                                     <div>
                                         <div class="product-name">${p.name}</div>
-                                        <div class="product-desc">${p.details}</div>
+                                        <button class="more-details-btn" onclick="toggleDetails(${p.id})">More Details</button>
+                                        <div class="product-desc" id="desc-${p.id}" style="display:none;">${p.details}</div>
                                     </div>
                                     <div>
                                         <div class="price-row">
@@ -639,6 +697,15 @@
             });
         }
 
+        function toggleDetails(id) {
+            const desc = document.getElementById(`desc-${id}`);
+            if (desc.style.display === 'none') {
+                desc.style.display = 'block';
+            } else {
+                desc.style.display = 'none';
+            }
+        }
+
         let slideIndexes = {};
         function moveSlide(category, id, direction) {
             let key = `${category}-${id}`;
@@ -652,6 +719,15 @@
             
             let track = document.getElementById(`slider-${key}`);
             track.style.transform = `translateX(-${slideIndexes[key] * 100}%)`;
+        }
+
+        function openLightbox(imgSrc) {
+            document.getElementById('lightboxImg').src = imgSrc;
+            document.getElementById('lightboxModal').classList.add('show');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.remove('show');
         }
 
         function filterCategory(category, btn) {
@@ -752,6 +828,15 @@
             const city = document.getElementById('custCity').value;
             const state = document.getElementById('custState').value;
 
+            // Save address to LocalStorage for future visits
+            localStorage.setItem('sr_name', name);
+            localStorage.setItem('sr_phone', phone);
+            localStorage.setItem('sr_house', house);
+            localStorage.setItem('sr_area', area);
+            localStorage.setItem('sr_pincode', pincode);
+            localStorage.setItem('sr_city', city);
+            localStorage.setItem('sr_state', state);
+
             let message = `🛒 *NEW ORDER RECEIVED - SR COLLECTION* 🛒\n\n`;
             message += `👤 *Customer Details:*\n`;
             message += `• Name: ${name}\n`;
@@ -772,14 +857,14 @@
             message += `\n💰 *Total Amount: ₹${total}*\n`;
             message += `-----------------------------------`;
 
-            const whatsappNumber = "919883998097"; 
+            const whatsappNumber = "919876543210"; 
             const encodedMsg = encodeURIComponent(message);
             
-            // Background delivery
+            // Background WhatsApp dispatch
             const iframe = document.getElementById('hidden_wa_frame');
             iframe.src = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
 
-            // Show success popup
+            // Show animated success popup
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('successModal').classList.add('show');
             document.getElementById('overlay').classList.add('show');
