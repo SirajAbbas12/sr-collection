@@ -16,8 +16,8 @@
             --text-dark: #222222;
             --text-muted: #666666;
             --white: #ffffff;
-            --shadow: 0 4px 20px rgba(128,0,32,0.08);
-            --radius: 12px;
+            --shadow: 0 10px 35px rgba(128,0,32,0.12);
+            --radius: 16px;
         }
 
         * {
@@ -34,12 +34,13 @@
         }
 
         header {
-            background: linear-gradient(135deg, var(--white), #fff9f5);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(128,0,32,0.06);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -71,12 +72,13 @@
         }
 
         .profile-avatar-icon {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--accent);
             cursor: pointer;
+            box-shadow: 0 2px 8px rgba(212,175,55,0.4);
         }
 
         .cart-badge {
@@ -148,7 +150,7 @@
             background: var(--primary);
             color: var(--white);
             border-color: var(--primary);
-            box-shadow: 0 4px 10px rgba(128,0,32,0.3);
+            box-shadow: 0 4px 15px rgba(128,0,32,0.3);
         }
 
         .container {
@@ -192,11 +194,12 @@
             flex-direction: column;
             border: 1px solid #f0e6d2;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .product-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(128,0,32,0.2);
         }
 
         .product-img-box {
@@ -228,7 +231,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.5);
             color: white;
             border: none;
             padding: 6px 10px;
@@ -249,10 +252,11 @@
             color: var(--accent);
             font-size: 10px;
             padding: 4px 10px;
-            border-radius: 4px;
+            border-radius: 6px;
             font-weight: 700;
             border: 1px solid var(--accent);
             z-index: 10;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
         .product-info {
@@ -297,19 +301,21 @@
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: var(--white);
             border: 1px solid var(--accent);
-            padding: 9px;
+            padding: 10px;
             border-radius: 8px;
             font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
+            box-shadow: 0 4px 15px rgba(128,0,32,0.2);
+            transition: opacity 0.2s;
         }
+        .btn-add-cart:hover { opacity: 0.92; }
 
-        /* Coming Soon Placeholder Cards */
         .coming-soon-card {
             background: var(--white);
             border-radius: var(--radius);
-            border: 1px dashed var(--accent);
+            border: 2px dashed var(--accent);
             padding: 30px 15px;
             text-align: center;
             display: flex;
@@ -319,15 +325,8 @@
             gap: 10px;
             color: var(--text-muted);
         }
-        .coming-soon-card i {
-            font-size: 28px;
-            color: var(--accent);
-        }
-        .coming-soon-card span {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary);
-        }
+        .coming-soon-card i { font-size: 32px; color: var(--accent); }
+        .coming-soon-card span { font-size: 14px; font-weight: 600; color: var(--primary); }
 
         .overlay {
             position: fixed;
@@ -414,6 +413,7 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(128,0,32,0.3);
         }
 
         .form-group { margin-bottom: 18px; }
@@ -429,136 +429,144 @@
             width: 100%;
             padding: 12px;
             border: 1px solid #d4af37;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 14px;
             outline: none;
             background: #fff;
         }
 
-        /* Product Detail Quick View Modal */
-        .quick-view-modal {
+        /* Dedicated Full-Page Product Detail View */
+        .product-detail-page {
             position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background: var(--white);
-            border-radius: var(--radius);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg-light);
             z-index: 1050;
-            width: 95%; max-width: 480px;
-            max-height: 90vh;
             display: none;
             flex-direction: column;
-            overflow: hidden;
-            border: 2px solid var(--accent);
-            opacity: 0;
-            transition: all 0.3s ease;
+            overflow-y: auto;
         }
-        .quick-view-modal.show {
+        .product-detail-page.show { display: flex; }
+
+        .pdp-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 15px 20px;
             display: flex;
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 2px solid var(--accent);
         }
-        .qv-img-container {
+
+        .pdp-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
             width: 100%;
-            height: 240px;
-            background: #f7f7f7;
+        }
+
+        .pdp-gallery {
+            width: 100%;
+            height: 320px;
+            background: #fff;
+            border-radius: var(--radius);
+            overflow: hidden;
             position: relative;
+            box-shadow: var(--shadow);
+            border: 1px solid #f0e6d2;
+            margin-bottom: 20px;
         }
-        .qv-img-container img {
+
+        @media(min-width: 768px) {
+            .pdp-gallery { height: 450px; }
+        }
+
+        .pdp-slider-track {
+            display: flex;
             width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .pdp-slider-track img {
+            min-width: 100%;
             height: 100%;
             object-fit: cover;
             cursor: pointer;
         }
-        .qv-body {
-            padding: 20px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-        .qv-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-        .qv-price-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .qv-desc {
-            font-size: 12px;
-            color: var(--text-muted);
-            background: #fff9f5;
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent);
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        .qv-actions {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .btn-action-outline {
-            flex: 1;
-            background: var(--white);
-            color: var(--primary);
-            border: 1px solid var(--accent);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-        .btn-action-outline:hover { background: #fff9f5; }
 
-        /* Review Section inside Product Modal */
-        .reviews-section {
-            border-top: 1px solid #e6dcc8;
-            padding-top: 15px;
-            margin-top: 15px;
+        .pdp-details-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid #f0e6d2;
+            margin-bottom: 20px;
         }
-        .reviews-title {
-            font-size: 14px;
+
+        .pdp-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 10px;
+        }
+
+        .pdp-price-row {
             display: flex;
-            justify-content: space-between;
+            gap: 15px;
             align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .pdp-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            background: #fff9f5;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .pdp-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .reviews-section {
+            border-top: 1px solid #e6dcc8;
+            padding-top: 20px;
+            margin-top: 20px;
         }
         .review-card {
             background: #fcf9f2;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 12px;
             border: 1px solid #f0e6d2;
         }
         .review-author-row {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 4px;
+            gap: 10px;
+            margin-bottom: 6px;
         }
         .review-author-img {
-            width: 24px; height: 24px;
+            width: 28px; height: 28px;
             border-radius: 50%;
             object-fit: cover;
             border: 1px solid var(--accent);
         }
         .review-author-name { font-weight: 600; color: var(--primary); }
-        .review-stars { color: #d4af37; font-size: 11px; }
+        .review-stars { color: #d4af37; font-size: 12px; }
 
-        /* Smooth Animated Success Popup Modal */
         .success-modal {
             position: fixed;
             top: 50%; left: 50%;
@@ -585,7 +593,6 @@
         .success-modal h3 { font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 10px; }
         .success-modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
 
-        /* Lightbox Zoom Modal */
         .lightbox-modal {
             position: fixed;
             top: 0; left: 0;
@@ -626,7 +633,7 @@
     <div class="search-container">
         <div class="search-bar">
             <i class="fa-solid fa-search"></i>
-            <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
+            <input type="text" id="searchInput" placeholder="Search luxury products..." oninput="filterProducts()">
         </div>
     </div>
 
@@ -641,62 +648,67 @@
 
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
     
-    <!-- Product Quick View Modal -->
-    <div class="quick-view-modal" id="quickViewModal">
-        <div class="modal-header" style="padding: 12px 20px;">
-            <h3 style="font-size: 16px;">Product Details & Reviews</h3>
-            <button class="icon-btn" style="color:white; font-size:18px;" onclick="closeAllModals()"><i class="fa-solid fa-xmark"></i></button>
+    <!-- Dedicated Full-Page Product Detail View -->
+    <div class="product-detail-page" id="productDetailPage">
+        <div class="pdp-header">
+            <h3 style="font-size: 16px;">Product Showcase</h3>
+            <button class="icon-btn" style="color:white; font-size:20px;" onclick="closePDP()"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="qv-img-container">
-            <img id="qvImage" src="" alt="Product View" onclick="openLightbox(this.src)">
-        </div>
-        <div class="qv-body">
-            <div class="qv-title" id="qvName"></div>
-            <div class="qv-price-row">
-                <span class="current-price" id="qvPrice" style="font-size: 20px;"></span>
-                <span class="old-price" id="qvOldPrice" style="font-size: 14px;"></span>
+        <div class="pdp-container">
+            <div class="pdp-gallery">
+                <div class="pdp-slider-track" id="pdpSliderTrack"></div>
+                <button class="slider-btn prev" onclick="movePDPSlide(-1)">❮</button>
+                <button class="slider-btn next" onclick="movePDPSlide(1)">❯</button>
             </div>
-            <div class="qv-desc" id="qvDesc"></div>
-            <div class="qv-actions">
-                <button class="btn-action-outline" onclick="shareCurrentProduct()">
-                    <i class="fa-solid fa-share-nodes"></i> Share Link
-                </button>
-                <button class="btn-action-outline" onclick="askQueryWhatsApp()">
-                    <i class="fa-brands fa-whatsapp" style="color:#28a745;"></i> Ask Query
-                </button>
-            </div>
-            <button class="btn-add-cart" id="qvAddToCartBtn" onclick="addCurrentProductToCart()">Add to Cart</button>
-
-            <!-- Reviews & Rating Section -->
-            <div class="reviews-section">
-                <div class="reviews-title">
-                    <span>Customer Reviews (<span id="reviewCount">0</span>)</span>
-                    <button style="background:none; border:none; color:var(--primary); font-weight:600; cursor:pointer; font-size:12px;" onclick="openAddReviewBox()">+ Write Review</button>
+            
+            <div class="pdp-details-card">
+                <div class="pdp-title" id="pdpName"></div>
+                <div class="pdp-price-row">
+                    <span class="current-price" id="pdpPrice" style="font-size: 22px;"></span>
+                    <span class="old-price" id="pdpOldPrice" style="font-size: 15px;"></span>
+                </div>
+                <div class="pdp-desc" id="pdpDesc"></div>
+                
+                <div class="pdp-actions">
+                    <button class="btn-action-outline" onclick="shareCurrentProduct()" style="flex:1; padding:12px; border:1px solid var(--accent); border-radius:8px; background:#fff; color:var(--primary); font-weight:600; cursor:pointer;">
+                        <i class="fa-solid fa-share-nodes"></i> Share Link
+                    </button>
+                    <button class="btn-action-outline" onclick="askQueryWhatsApp()" style="flex:1; padding:12px; border:1px solid var(--accent); border-radius:8px; background:#fff; color:var(--primary); font-weight:600; cursor:pointer;">
+                        <i class="fa-brands fa-whatsapp" style="color:#28a745;"></i> Ask Query
+                    </button>
                 </div>
                 
-                <!-- Add Review Form (Hidden by default) -->
-                <div id="addReviewFormContainer" style="display:none; background:#fff9f5; padding:12px; border-radius:8px; margin-bottom:12px; border:1px solid var(--accent);">
-                    <div class="form-group" style="margin-bottom:8px;">
-                        <label>Rating</label>
-                        <select id="newReviewRating">
-                            <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
-                            <option value="4">⭐⭐⭐⭐ (4/5)</option>
-                            <option value="3">⭐⭐⭐ (3/5)</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="margin-bottom:8px;">
-                        <label>Your Review</label>
-                        <textarea id="newReviewText" rows="2" placeholder="Write your experience..."></textarea>
-                    </div>
-                    <button class="btn-add-cart" onclick="submitProductReview()">Post Review</button>
-                </div>
+                <button class="btn-primary-custom" id="pdpAddToCartBtn" style="margin-bottom: 20px;">Add to Cart</button>
 
-                <div id="reviewsListContainer"></div>
+                <div class="reviews-section">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <span style="font-weight:700; color:var(--primary);">Customer Reviews (<span id="pdpReviewCount">0</span>)</span>
+                        <button style="background:none; border:none; color:var(--primary); font-weight:600; cursor:pointer; font-size:12px;" onclick="openAddReviewBox()">+ Write Review</button>
+                    </div>
+                    
+                    <div id="addReviewFormContainer" style="display:none; background:#fff9f5; padding:12px; border-radius:8px; margin-bottom:12px; border:1px solid var(--accent);">
+                        <div class="form-group" style="margin-bottom:8px;">
+                            <label>Rating</label>
+                            <select id="newReviewRating">
+                                <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                                <option value="3">⭐⭐⭐ (3/5)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom:8px;">
+                            <label>Your Review</label>
+                            <textarea id="newReviewText" rows="2" placeholder="Write your experience..."></textarea>
+                        </div>
+                        <button class="btn-primary-custom" onclick="submitProductReview()" style="padding:10px; font-size:13px;">Post Review</button>
+                    </div>
+
+                    <div id="pdpReviewsList"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Customer Profile Modal -->
+    <!-- Customer Profile Modal (Gallery File Upload) -->
     <div class="modal-drawer" id="profileModal">
         <div class="modal-header">
             <h3>MY PROFILE & PHOTO</h3>
@@ -705,15 +717,15 @@
         <div class="modal-body">
             <div style="text-align:center; margin-bottom:20px;">
                 <img id="profilePreviewImg" src="" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); margin-bottom:10px;" onerror="this.src='https://via.placeholder.com/80?text=👤'">
-                <p style="font-size:12px; color:var(--text-muted);">Set your profile info and avatar link so your reviews look professional!</p>
+                <p style="font-size:12px; color:var(--text-muted);">Select your photo from gallery to make reviews look professional!</p>
             </div>
             <div class="form-group">
                 <label>Your Name *</label>
                 <input type="text" id="userProfileName" placeholder="Enter your name">
             </div>
             <div class="form-group">
-                <label>Profile Photo URL (Image link) *</label>
-                <input type="url" id="userProfilePhoto" placeholder="Paste image address/URL">
+                <label>Upload Profile Photo from Gallery *</label>
+                <input type="file" id="userProfileFile" accept="image/*" onchange="handleImageUpload(event)" style="padding:8px;">
             </div>
             <button class="btn-primary-custom" onclick="saveUserProfile()">Save Profile</button>
         </div>
@@ -789,7 +801,7 @@
         </div>
     </div>
 
-    <!-- Smooth Animated Success Popup Modal -->
+    <!-- Success Popup Modal -->
     <div class="success-modal" id="successModal">
         <i class="fa-solid fa-circle-check"></i>
         <h3>Order Placed Successfully!</h3>
@@ -836,9 +848,10 @@
         let cart = [];
         let currentFilter = 'all';
         let pendingWhatsAppUrl = "";
-        let activeQuickViewProduct = null;
+        let activePDPProduct = null;
+        let pdpSlideIndex = 0;
+        let tempBase64Photo = "";
 
-        // Load profile and address on startup
         window.onload = function() {
             loadUserProfileUI();
             
@@ -850,14 +863,13 @@
             if(localStorage.getItem('sr_city')) document.getElementById('custCity').value = localStorage.getItem('sr_city');
             if(localStorage.getItem('sr_state')) document.getElementById('custState').value = localStorage.getItem('sr_state');
 
-            // Check URL if specific product was requested via unique link
             const urlParams = new URLSearchParams(window.location.search);
             const prodId = urlParams.get('product_id');
             const catKey = urlParams.get('category');
             if (prodId && catKey && allProductsData[catKey]) {
                 const found = allProductsData[catKey].find(p => p.id == prodId);
                 if (found) {
-                    openQuickView(catKey, found.id);
+                    openProductDetailPage(catKey, found.id);
                 }
             }
         };
@@ -869,24 +881,35 @@
             document.getElementById('headerProfileAvatar').src = photo;
             document.getElementById('profilePreviewImg').src = photo;
             document.getElementById('userProfileName').value = localStorage.getItem('sr_profile_name') || '';
-            document.getElementById('userProfilePhoto').value = localStorage.getItem('sr_profile_photo') || '';
+            tempBase64Photo = photo;
             if(!localStorage.getItem('sr_name')) document.getElementById('custName').value = name;
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tempBase64Photo = e.target.result;
+                    document.getElementById('profilePreviewImg').src = tempBase64Photo;
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
         function openProfileModal() {
             document.getElementById('overlay').classList.add('show');
             document.getElementById('profileModal').classList.add('open');
             document.getElementById('cartModal').classList.remove('open');
-            document.getElementById('quickViewModal').classList.remove('show');
+            document.getElementById('productDetailPage').classList.remove('show');
         }
 
         function saveUserProfile() {
             const name = document.getElementById('userProfileName').value;
-            const photo = document.getElementById('userProfilePhoto').value;
             if(!name) { alert('Please enter your name'); return; }
 
             localStorage.setItem('sr_profile_name', name);
-            localStorage.setItem('sr_profile_photo', photo);
+            localStorage.setItem('sr_profile_photo', tempBase64Photo);
             localStorage.setItem('sr_name', name);
             
             loadUserProfileUI();
@@ -927,15 +950,15 @@
                             let imgs = p.images.map((img) => `<img src="${img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">`).join('');
                             imgHtml = `<div class="slider-track" id="slider-${cat.key}-${p.id}">${imgs}</div>`;
                             sliderButtons = `
-                                <button class="slider-btn prev" onclick="event.stopPropagation(); moveSlide('${cat.key}', ${p.id}, -1)">❮</button>
-                                <button class="slider-btn next" onclick="event.stopPropagation(); moveSlide('${cat.key}', ${p.id}, 1)">❯</button>
+                                <button class="slider-btn prev" onclick="event.stopPropagation(); moveCardSlide('${cat.key}', ${p.id}, -1)">❮</button>
+                                <button class="slider-btn next" onclick="event.stopPropagation(); moveCardSlide('${cat.key}', ${p.id}, 1)">❯</button>
                             `;
                         } else {
                             imgHtml = `<div class="slider-track"><img src="${p.images[0]}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'"></div>`;
                         }
 
                         sectionHTML += `
-                            <div class="product-card" onclick="openQuickView('${cat.key}', ${p.id})">
+                            <div class="product-card" onclick="openProductDetailPage('${cat.key}', ${p.id})">
                                 <div class="product-img-box">
                                     <span class="badge">TRENDING</span>
                                     ${imgHtml}
@@ -974,44 +997,65 @@
             });
         }
 
-        let slideIndexes = {};
-        function moveSlide(category, id, direction) {
+        let cardSlideIndexes = {};
+        function moveCardSlide(category, id, direction) {
             let key = `${category}-${id}`;
-            if (!(key in slideIndexes)) slideIndexes[key] = 0;
+            if (!(key in cardSlideIndexes)) cardSlideIndexes[key] = 0;
             let product = allProductsData[category].find(p => p.id === id);
-            slideIndexes[key] += direction;
-            if (slideIndexes[key] >= product.images.length) slideIndexes[key] = 0;
-            if (slideIndexes[key] < 0) slideIndexes[key] = product.images.length - 1;
+            cardSlideIndexes[key] += direction;
+            if (cardSlideIndexes[key] >= product.images.length) cardSlideIndexes[key] = 0;
+            if (cardSlideIndexes[key] < 0) cardSlideIndexes[key] = product.images.length - 1;
             let track = document.getElementById(`slider-${key}`);
-            track.style.transform = `translateX(-${slideIndexes[key] * 100}%)`;
+            if(track) track.style.transform = `translateX(-${cardSlideIndexes[key] * 100}%)`;
         }
 
-        function openQuickView(category, id) {
+        function openProductDetailPage(category, id) {
             const product = allProductsData[category].find(p => p.id === id);
             if (!product) return;
 
-            activeQuickViewProduct = { ...product, category };
+            activePDPProduct = { ...product, category };
+            pdpSlideIndex = 0;
 
-            document.getElementById('qvImage').src = product.images[0];
-            document.getElementById('qvName').innerText = product.name;
-            document.getElementById('qvPrice').innerText = `₹${product.price}`;
-            document.getElementById('qvOldPrice').innerText = product.oldPrice ? `₹${product.oldPrice}` : '';
-            document.getElementById('qvDesc').innerText = product.details;
+            renderPDPSlider();
+            document.getElementById('pdpName').innerText = product.name;
+            document.getElementById('pdpPrice').innerText = `₹${product.price}`;
+            document.getElementById('pdpOldPrice').innerText = product.oldPrice ? `₹${product.oldPrice}` : '';
+            document.getElementById('pdpDesc').innerText = product.details;
             
-            document.getElementById('qvAddToCartBtn').onclick = function() {
+            document.getElementById('pdpAddToCartBtn').onclick = function() {
                 addToCart(category, id);
-                closeAllModals();
+                closePDP();
             };
 
-            renderProductReviews(product);
+            renderPDPReviews(product);
 
-            document.getElementById('overlay').classList.add('show');
-            document.getElementById('quickViewModal').classList.add('show');
+            document.getElementById('productDetailPage').classList.add('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function renderProductReviews(product) {
-            const container = document.getElementById('reviewsListContainer');
-            document.getElementById('reviewCount').innerText = product.reviews.length;
+        function renderPDPSlider() {
+            const track = document.getElementById('pdpSliderTrack');
+            track.innerHTML = activePDPProduct.images.map(img => `<img src="${img}" onclick="openLightbox(this.src)" onerror="this.src='https://via.placeholder.com/400?text=SR+Collection'">`).join('');
+            track.style.transform = `translateX(0%)`;
+        }
+
+        function movePDPSlide(direction) {
+            if (!activePDPProduct) return;
+            pdpSlideIndex += direction;
+            if (pdpSlideIndex >= activePDPProduct.images.length) pdpSlideIndex = 0;
+            if (pdpSlideIndex < 0) pdpSlideIndex = activePDPProduct.images.length - 1;
+            
+            const track = document.getElementById('pdpSliderTrack');
+            track.style.transform = `translateX(-${pdpSlideIndex * 100}%)`;
+        }
+
+        function closePDP() {
+            document.getElementById('productDetailPage').classList.remove('show');
+        }
+
+        function renderPDPReviews(product) {
+            const container = document.getElementById('pdpReviewsList');
+            document.getElementById('pdpReviewCount').innerText = product.reviews.length;
             document.getElementById('addReviewFormContainer').style.display = 'none';
 
             if (product.reviews.length === 0) {
@@ -1043,7 +1087,7 @@
         }
 
         function submitProductReview() {
-            if (!activeQuickViewProduct) return;
+            if (!activePDPProduct) return;
             const rating = parseInt(document.getElementById('newReviewRating').value);
             const text = document.getElementById('newReviewText').value;
             if(!text) { alert('Please write a review text'); return; }
@@ -1051,8 +1095,8 @@
             const userName = localStorage.getItem('sr_profile_name') || 'Customer';
             const userPhoto = localStorage.getItem('sr_profile_photo') || '';
 
-            const cat = activeQuickViewProduct.category;
-            const prodId = activeQuickViewProduct.id;
+            const cat = activePDPProduct.category;
+            const prodId = activePDPProduct.id;
             const prodRef = allProductsData[cat].find(p => p.id === prodId);
 
             prodRef.reviews.unshift({
@@ -1063,21 +1107,20 @@
             });
 
             document.getElementById('newReviewText').value = '';
-            renderProductReviews(prodRef);
+            renderPDPReviews(prodRef);
             alert('Review posted successfully!');
         }
 
         function shareCurrentProduct() {
-            if (!activeQuickViewProduct) return;
-            // Unique Product Sharing Link
+            if (!activePDPProduct) return;
             const baseUrl = window.location.href.split('?')[0];
-            const uniqueProductUrl = `${baseUrl}?category=${activeQuickViewProduct.category}&product_id=${activeQuickViewProduct.id}`;
+            const uniqueProductUrl = `${baseUrl}?category=${activePDPProduct.category}&product_id=${activePDPProduct.id}`;
             
-            const shareText = `✨ Check out this exclusive item from SR Collection:\n*${activeQuickViewProduct.name}*\nPrice: ₹${activeQuickViewProduct.price}\n\n👉 Click link to view & order:\n${uniqueProductUrl}`;
+            const shareText = `✨ Check out this exclusive item from SR Collection:\n*${activePDPProduct.name}*\nPrice: ₹${activePDPProduct.price}\n\n👉 Click link to view & order:\n${uniqueProductUrl}`;
             
             if (navigator.share) {
                 navigator.share({
-                    title: activeQuickViewProduct.name,
+                    title: activePDPProduct.name,
                     text: shareText,
                     url: uniqueProductUrl
                 }).catch(() => {});
@@ -1088,8 +1131,8 @@
         }
 
         function askQueryWhatsApp() {
-            if (!activeQuickViewProduct) return;
-            const queryMsg = `Hi, I have a query regarding this product:\n*${activeQuickViewProduct.name}* (Price: ₹${activeQuickViewProduct.price})\nPlease provide more details.`;
+            if (!activePDPProduct) return;
+            const queryMsg = `Hi, I have a query regarding this product:\n*${activePDPProduct.name}* (Price: ₹${activePDPProduct.price})\nPlease provide more details.`;
             const waUrl = `https://wa.me/919883998097?text=${encodeURIComponent(queryMsg)}`;
             window.open(waUrl, '_blank');
         }
@@ -1172,7 +1215,7 @@
             document.getElementById('overlay').classList.add('show');
             document.getElementById('cartModal').classList.add('open');
             document.getElementById('addressModal').classList.remove('open');
-            document.getElementById('quickViewModal').classList.remove('show');
+            document.getElementById('productDetailPage').classList.remove('show');
             document.getElementById('profileModal').classList.remove('open');
         }
 
@@ -1190,7 +1233,7 @@
             document.getElementById('cartModal').classList.remove('open');
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('successModal').classList.remove('show');
-            document.getElementById('quickViewModal').classList.remove('show');
+            document.getElementById('productDetailPage').classList.remove('show');
             document.getElementById('profileModal').classList.remove('open');
         }
 
@@ -1200,7 +1243,7 @@
             const name = document.getElementById('custName').value;
             const phone = document.getElementById('custPhone').value;
             const house = document.getElementById('custHouse').value;
-            const area = document.getElementById('custArea').value;
+            const area = document.getElementById('custArea++' || 'custArea').value;
             const pincode = document.getElementById('custPincode').value;
             const city = document.getElementById('custCity').value;
             const state = document.getElementById('custState').value;
