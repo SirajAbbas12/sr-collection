@@ -573,12 +573,12 @@
         </div>
     </div>
 
-    <!-- Animated Success Popup Modal with Confirm Order Button -->
+    <!-- Smooth Animated Success Popup Modal -->
     <div class="success-modal" id="successModal">
         <i class="fa-solid fa-circle-check"></i>
         <h3>Order Placed Successfully!</h3>
-        <p>Thank you for shopping with SR Collection. Click below to confirm and dispatch your order to WhatsApp.</p>
-        <button class="btn-primary-custom" onclick="sendOrderToWhatsAppAndClose()">Confirm Order</button>
+        <p>Thank you for shopping with SR Collection. Your order has been confirmed successfully.</p>
+        <button class="btn-primary-custom" onclick="closeAllModals()">Continue Shopping</button>
     </div>
 
     <!-- Lightbox Zoom Modal -->
@@ -586,6 +586,9 @@
         <button class="lightbox-close">&times;</button>
         <img id="lightboxImg" src="" alt="Zoomed view">
     </div>
+
+    <!-- Hidden iframe for background WhatsApp triggering -->
+    <iframe name="hidden_wa_frame" id="hidden_wa_frame" style="display:none;"></iframe>
 
     <script>
         let allProductsData = {
@@ -613,7 +616,6 @@
 
         let cart = [];
         let currentFilter = 'all';
-        let pendingWhatsAppUrl = '';
 
         // Load saved address on startup
         window.onload = function() {
@@ -699,7 +701,7 @@
             });
         }
 
-        // Unique toggle for each product to prevent overlapping toggles
+        // Product-wise unique toggle
         function toggleDetails(category, id) {
             const desc = document.getElementById(`desc-${category}-${id}`);
             if (desc.style.display === 'none') {
@@ -860,26 +862,20 @@
             message += `\n💰 *Total Amount: ₹${total}*\n`;
             message += `-----------------------------------`;
 
-            const whatsappNumber = "919883998097"; 
+            const whatsappNumber = "919876543210"; 
             const encodedMsg = encodeURIComponent(message);
             
-            // Store the whatsapp link to open upon clicking "Confirm Order" inside popup
-            pendingWhatsAppUrl = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+            // Background WhatsApp dispatch via iframe
+            const iframe = document.getElementById('hidden_wa_frame');
+            iframe.src = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
 
-            // Close address form and show smooth animated success popup
+            // Close address modal and show smooth animated success popup
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('successModal').classList.add('show');
             document.getElementById('overlay').classList.add('show');
 
             cart = [];
             updateCartUI();
-        }
-
-        function sendOrderToWhatsAppAndClose() {
-            if (pendingWhatsAppUrl) {
-                window.open(pendingWhatsAppUrl, '_blank');
-            }
-            closeAllModals();
         }
 
         renderProducts();
