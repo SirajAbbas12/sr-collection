@@ -1219,7 +1219,7 @@
                     totalPrice += item.price * item.qty;
                     cartBody.innerHTML += `
                         <div class="cart-item">
-                            <img src="${item.image}" alt="${item.name}">
+                            <img src="${item.image.startsWith('http') ? item.image : 'images/' + item.image}" alt="${item.name}">
                             <div class="cart-item-details">
                                 <div class="cart-item-title">${item.name}</div>
                                 <div class="cart-item-price">₹${item.price} x ${item.qty}</div>
