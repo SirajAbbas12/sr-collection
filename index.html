@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SR Collection - Official Store</title>
+    <title>SR Collection - Luxury Boutique</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -30,7 +30,7 @@
         body {
             background-color: var(--bg-light);
             color: var(--text-dark);
-            padding-bottom: 80px;
+            padding-bottom: 90px;
         }
 
         header {
@@ -68,6 +68,15 @@
             color: var(--primary);
             cursor: pointer;
             position: relative;
+        }
+
+        .profile-avatar-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            cursor: pointer;
         }
 
         .cart-badge {
@@ -416,7 +425,7 @@
             color: var(--primary);
             margin-bottom: 6px;
         }
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #d4af37;
@@ -451,7 +460,7 @@
         }
         .qv-img-container {
             width: 100%;
-            height: 250px;
+            height: 240px;
             background: #f7f7f7;
             position: relative;
         }
@@ -492,7 +501,7 @@
         .qv-actions {
             display: flex;
             gap: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
         .btn-action-outline {
             flex: 1;
@@ -509,9 +518,45 @@
             justify-content: center;
             gap: 6px;
         }
-        .btn-action-outline:hover {
-            background: #fff9f5;
+        .btn-action-outline:hover { background: #fff9f5; }
+
+        /* Review Section inside Product Modal */
+        .reviews-section {
+            border-top: 1px solid #e6dcc8;
+            padding-top: 15px;
+            margin-top: 15px;
         }
+        .reviews-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .review-card {
+            background: #fcf9f2;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            border: 1px solid #f0e6d2;
+        }
+        .review-author-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .review-author-img {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--accent);
+        }
+        .review-author-name { font-weight: 600; color: var(--primary); }
+        .review-stars { color: #d4af37; font-size: 11px; }
 
         /* Smooth Animated Success Popup Modal */
         .success-modal {
@@ -554,10 +599,8 @@
         }
         .lightbox-modal.show { display: flex; }
         .lightbox-modal img {
-            max-width: 90%;
-            max-height: 80vh;
-            border-radius: 8px;
-            border: 2px solid var(--accent);
+            max-width: 90%; max-height: 80vh;
+            border-radius: 8px; border: 2px solid var(--accent);
         }
         .lightbox-close {
             position: absolute;
@@ -572,6 +615,7 @@
     <header>
         <a href="#" class="logo">SR COLLECTION</a>
         <div class="nav-icons">
+            <img src="" id="headerProfileAvatar" class="profile-avatar-icon" onclick="openProfileModal()" title="My Profile" onerror="this.src='https://via.placeholder.com/40?text=👤'">
             <button class="icon-btn" onclick="openCart()">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span class="cart-badge" id="cartCount">0</span>
@@ -600,7 +644,7 @@
     <!-- Product Quick View Modal -->
     <div class="quick-view-modal" id="quickViewModal">
         <div class="modal-header" style="padding: 12px 20px;">
-            <h3 style="font-size: 16px;">Product Details & Inquiry</h3>
+            <h3 style="font-size: 16px;">Product Details & Reviews</h3>
             <button class="icon-btn" style="color:white; font-size:18px;" onclick="closeAllModals()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="qv-img-container">
@@ -615,13 +659,63 @@
             <div class="qv-desc" id="qvDesc"></div>
             <div class="qv-actions">
                 <button class="btn-action-outline" onclick="shareCurrentProduct()">
-                    <i class="fa-solid fa-share-nodes"></i> Share Product
+                    <i class="fa-solid fa-share-nodes"></i> Share Link
                 </button>
                 <button class="btn-action-outline" onclick="askQueryWhatsApp()">
-                    <i class="fa-brands fa-whatsapp" style="color:#28a745;"></i> Ask Any Query
+                    <i class="fa-brands fa-whatsapp" style="color:#28a745;"></i> Ask Query
                 </button>
             </div>
             <button class="btn-add-cart" id="qvAddToCartBtn" onclick="addCurrentProductToCart()">Add to Cart</button>
+
+            <!-- Reviews & Rating Section -->
+            <div class="reviews-section">
+                <div class="reviews-title">
+                    <span>Customer Reviews (<span id="reviewCount">0</span>)</span>
+                    <button style="background:none; border:none; color:var(--primary); font-weight:600; cursor:pointer; font-size:12px;" onclick="openAddReviewBox()">+ Write Review</button>
+                </div>
+                
+                <!-- Add Review Form (Hidden by default) -->
+                <div id="addReviewFormContainer" style="display:none; background:#fff9f5; padding:12px; border-radius:8px; margin-bottom:12px; border:1px solid var(--accent);">
+                    <div class="form-group" style="margin-bottom:8px;">
+                        <label>Rating</label>
+                        <select id="newReviewRating">
+                            <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                            <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                            <option value="3">⭐⭐⭐ (3/5)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom:8px;">
+                        <label>Your Review</label>
+                        <textarea id="newReviewText" rows="2" placeholder="Write your experience..."></textarea>
+                    </div>
+                    <button class="btn-add-cart" onclick="submitProductReview()">Post Review</button>
+                </div>
+
+                <div id="reviewsListContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Profile Modal -->
+    <div class="modal-drawer" id="profileModal">
+        <div class="modal-header">
+            <h3>MY PROFILE & PHOTO</h3>
+            <button class="icon-btn" style="color:white;" onclick="closeAllModals()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div style="text-align:center; margin-bottom:20px;">
+                <img id="profilePreviewImg" src="" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); margin-bottom:10px;" onerror="this.src='https://via.placeholder.com/80?text=👤'">
+                <p style="font-size:12px; color:var(--text-muted);">Set your profile info and avatar link so your reviews look professional!</p>
+            </div>
+            <div class="form-group">
+                <label>Your Name *</label>
+                <input type="text" id="userProfileName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Profile Photo URL (Image link) *</label>
+                <input type="url" id="userProfilePhoto" placeholder="Paste image address/URL">
+            </div>
+            <button class="btn-primary-custom" onclick="saveUserProfile()">Save Profile</button>
         </div>
     </div>
 
@@ -695,7 +789,7 @@
         </div>
     </div>
 
-    <!-- Smooth Animated Success Popup Modal with WhatsApp Action Button -->
+    <!-- Smooth Animated Success Popup Modal -->
     <div class="success-modal" id="successModal">
         <i class="fa-solid fa-circle-check"></i>
         <h3>Order Placed Successfully!</h3>
@@ -720,7 +814,10 @@
                     price: 377,
                     oldPrice: 799,
                     images: ["1792674711363.png", "1792674653870.png"],
-                    details: "✨ COMBO HIGHLIGHT: Premium gold-plated traditional mangalsutra paired with elegant matching bangles. High durability, skin-friendly finish, perfect for daily wear and festive occasions."
+                    details: "✨ PRODUCT HIGHLIGHT: Premium gold-plated traditional mangalsutra paired with elegant matching bangles. High durability, skin-friendly finish, perfect for daily wear and festive occasions.",
+                    reviews: [
+                        { name: "Pooja Sharma", photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100", rating: 5, text: "Amazing quality! Looks exactly like real gold." }
+                    ]
                 },
                 {
                     id: 2,
@@ -728,7 +825,8 @@
                     price: 450,
                     oldPrice: 999,
                     images: ["1792616459138.png"],
-                    details: "✨ TRENDING: Exclusive peacock design gold plated choker necklace set complete with matching designer earrings. Exquisite craftsmanship."
+                    details: "✨ TRENDING: Exclusive peacock design gold plated choker necklace set complete with matching designer earrings. Exquisite craftsmanship.",
+                    reviews: []
                 }
             ],
             clothing: [],
@@ -740,8 +838,10 @@
         let pendingWhatsAppUrl = "";
         let activeQuickViewProduct = null;
 
-        // Load saved address on startup
+        // Load profile and address on startup
         window.onload = function() {
+            loadUserProfileUI();
+            
             if(localStorage.getItem('sr_name')) document.getElementById('custName').value = localStorage.getItem('sr_name');
             if(localStorage.getItem('sr_phone')) document.getElementById('custPhone').value = localStorage.getItem('sr_phone');
             if(localStorage.getItem('sr_house')) document.getElementById('custHouse').value = localStorage.getItem('sr_house');
@@ -749,7 +849,50 @@
             if(localStorage.getItem('sr_pincode')) document.getElementById('custPincode').value = localStorage.getItem('sr_pincode');
             if(localStorage.getItem('sr_city')) document.getElementById('custCity').value = localStorage.getItem('sr_city');
             if(localStorage.getItem('sr_state')) document.getElementById('custState').value = localStorage.getItem('sr_state');
+
+            // Check URL if specific product was requested via unique link
+            const urlParams = new URLSearchParams(window.location.search);
+            const prodId = urlParams.get('product_id');
+            const catKey = urlParams.get('category');
+            if (prodId && catKey && allProductsData[catKey]) {
+                const found = allProductsData[catKey].find(p => p.id == prodId);
+                if (found) {
+                    openQuickView(catKey, found.id);
+                }
+            }
         };
+
+        function loadUserProfileUI() {
+            const name = localStorage.getItem('sr_profile_name') || 'Customer';
+            const photo = localStorage.getItem('sr_profile_photo') || 'https://via.placeholder.com/40?text=👤';
+            
+            document.getElementById('headerProfileAvatar').src = photo;
+            document.getElementById('profilePreviewImg').src = photo;
+            document.getElementById('userProfileName').value = localStorage.getItem('sr_profile_name') || '';
+            document.getElementById('userProfilePhoto').value = localStorage.getItem('sr_profile_photo') || '';
+            if(!localStorage.getItem('sr_name')) document.getElementById('custName').value = name;
+        }
+
+        function openProfileModal() {
+            document.getElementById('overlay').classList.add('show');
+            document.getElementById('profileModal').classList.add('open');
+            document.getElementById('cartModal').classList.remove('open');
+            document.getElementById('quickViewModal').classList.remove('show');
+        }
+
+        function saveUserProfile() {
+            const name = document.getElementById('userProfileName').value;
+            const photo = document.getElementById('userProfilePhoto').value;
+            if(!name) { alert('Please enter your name'); return; }
+
+            localStorage.setItem('sr_profile_name', name);
+            localStorage.setItem('sr_profile_photo', photo);
+            localStorage.setItem('sr_name', name);
+            
+            loadUserProfileUI();
+            closeAllModals();
+            alert('Profile saved successfully!');
+        }
 
         function renderProducts(searchQuery = '') {
             const container = document.getElementById('mainContainer');
@@ -794,7 +937,7 @@
                         sectionHTML += `
                             <div class="product-card" onclick="openQuickView('${cat.key}', ${p.id})">
                                 <div class="product-img-box">
-                                    <span class="badge">COMBO / TRENDING</span>
+                                    <span class="badge">TRENDING</span>
                                     ${imgHtml}
                                     ${sliderButtons}
                                 </div>
@@ -812,12 +955,11 @@
                         `;
                     });
                 } else {
-                    // Professional Coming Soon placeholder boxes instead of empty space
                     sectionHTML += `
                         <div class="coming-soon-card">
                             <i class="fa-solid fa-box-open"></i>
                             <span>Coming Soon</span>
-                            <p style="font-size:11px;">New trendy items are arriving shortly!</p>
+                            <p style="font-size:11px;">New trendy items arriving shortly!</p>
                         </div>
                         <div class="coming-soon-card">
                             <i class="fa-solid fa-sparkles"></i>
@@ -836,23 +978,19 @@
         function moveSlide(category, id, direction) {
             let key = `${category}-${id}`;
             if (!(key in slideIndexes)) slideIndexes[key] = 0;
-            
             let product = allProductsData[category].find(p => p.id === id);
             slideIndexes[key] += direction;
-            
             if (slideIndexes[key] >= product.images.length) slideIndexes[key] = 0;
             if (slideIndexes[key] < 0) slideIndexes[key] = product.images.length - 1;
-            
             let track = document.getElementById(`slider-${key}`);
             track.style.transform = `translateX(-${slideIndexes[key] * 100}%)`;
         }
 
-        // Open Quick View Modal when clicking product card
         function openQuickView(category, id) {
             const product = allProductsData[category].find(p => p.id === id);
             if (!product) return;
 
-            activeQuickViewProduct = product;
+            activeQuickViewProduct = { ...product, category };
 
             document.getElementById('qvImage').src = product.images[0];
             document.getElementById('qvName').innerText = product.name;
@@ -865,23 +1003,87 @@
                 closeAllModals();
             };
 
+            renderProductReviews(product);
+
             document.getElementById('overlay').classList.add('show');
             document.getElementById('quickViewModal').classList.add('show');
         }
 
+        function renderProductReviews(product) {
+            const container = document.getElementById('reviewsListContainer');
+            document.getElementById('reviewCount').innerText = product.reviews.length;
+            document.getElementById('addReviewFormContainer').style.display = 'none';
+
+            if (product.reviews.length === 0) {
+                container.innerHTML = '<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px;">No reviews yet. Be the first to review!</p>';
+                return;
+            }
+
+            container.innerHTML = '';
+            product.reviews.forEach(rev => {
+                let stars = '⭐'.repeat(rev.rating);
+                container.innerHTML += `
+                    <div class="review-card">
+                        <div class="review-author-row">
+                            <img src="${rev.photo || 'https://via.placeholder.com/30?text=👤'}" class="review-author-img" onerror="this.src='https://via.placeholder.com/30?text=👤'">
+                            <div>
+                                <span class="review-author-name">${rev.name}</span>
+                                <div class="review-stars">${stars}</div>
+                            </div>
+                        </div>
+                        <p style="color:var(--text-dark); margin-top:4px;">${rev.text}</p>
+                    </div>
+                `;
+            });
+        }
+
+        function openAddReviewBox() {
+            const box = document.getElementById('addReviewFormContainer');
+            box.style.display = box.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function submitProductReview() {
+            if (!activeQuickViewProduct) return;
+            const rating = parseInt(document.getElementById('newReviewRating').value);
+            const text = document.getElementById('newReviewText').value;
+            if(!text) { alert('Please write a review text'); return; }
+
+            const userName = localStorage.getItem('sr_profile_name') || 'Customer';
+            const userPhoto = localStorage.getItem('sr_profile_photo') || '';
+
+            const cat = activeQuickViewProduct.category;
+            const prodId = activeQuickViewProduct.id;
+            const prodRef = allProductsData[cat].find(p => p.id === prodId);
+
+            prodRef.reviews.unshift({
+                name: userName,
+                photo: userPhoto,
+                rating: rating,
+                text: text
+            });
+
+            document.getElementById('newReviewText').value = '';
+            renderProductReviews(prodRef);
+            alert('Review posted successfully!');
+        }
+
         function shareCurrentProduct() {
             if (!activeQuickViewProduct) return;
-            const shareText = `Check out this amazing product from SR Collection:\n*${activeQuickViewProduct.name}*\nPrice: ₹${activeQuickViewProduct.price}\n\nVisit our store to order now!`;
+            // Unique Product Sharing Link
+            const baseUrl = window.location.href.split('?')[0];
+            const uniqueProductUrl = `${baseUrl}?category=${activeQuickViewProduct.category}&product_id=${activeQuickViewProduct.id}`;
+            
+            const shareText = `✨ Check out this exclusive item from SR Collection:\n*${activeQuickViewProduct.name}*\nPrice: ₹${activeQuickViewProduct.price}\n\n👉 Click link to view & order:\n${uniqueProductUrl}`;
             
             if (navigator.share) {
                 navigator.share({
                     title: activeQuickViewProduct.name,
                     text: shareText,
-                    url: window.location.href
+                    url: uniqueProductUrl
                 }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(shareText);
-                alert('Product details copied to clipboard!');
+                alert('Unique product link copied to clipboard!');
             }
         }
 
@@ -971,6 +1173,7 @@
             document.getElementById('cartModal').classList.add('open');
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('quickViewModal').classList.remove('show');
+            document.getElementById('profileModal').classList.remove('open');
         }
 
         function proceedToCheckoutForm() {
@@ -988,6 +1191,7 @@
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('successModal').classList.remove('show');
             document.getElementById('quickViewModal').classList.remove('show');
+            document.getElementById('profileModal').classList.remove('open');
         }
 
         function submitOrder(e) {
@@ -1001,7 +1205,6 @@
             const city = document.getElementById('custCity').value;
             const state = document.getElementById('custState').value;
 
-            // Save address to LocalStorage
             localStorage.setItem('sr_name', name);
             localStorage.setItem('sr_phone', phone);
             localStorage.setItem('sr_house', house);
@@ -1035,7 +1238,6 @@
             
             pendingWhatsAppUrl = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
 
-            // Close address modal and show smooth animated success popup
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('successModal').classList.add('show');
             document.getElementById('overlay').classList.add('show');
