@@ -182,6 +182,12 @@
             display: flex;
             flex-direction: column;
             border: 1px solid #f0e6d2;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
         }
 
         .product-img-box {
@@ -190,7 +196,6 @@
             height: 180px;
             background: #f7f7f7;
             overflow: hidden;
-            cursor: pointer;
         }
 
         @media(min-width: 768px) {
@@ -253,33 +258,11 @@
             font-size: 13px;
             font-weight: 600;
             color: var(--text-dark);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-        }
-
-        .product-desc {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            background: #fff9f5;
-            padding: 8px;
-            border-radius: 6px;
-            border-left: 2px solid var(--accent);
-        }
-
-        .more-details-btn {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: left;
-            margin-bottom: 8px;
-            text-decoration: underline;
         }
 
         .price-row {
@@ -311,6 +294,30 @@
             font-weight: 600;
             cursor: pointer;
             width: 100%;
+        }
+
+        /* Coming Soon Placeholder Cards */
+        .coming-soon-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            border: 1px dashed var(--accent);
+            padding: 30px 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--text-muted);
+        }
+        .coming-soon-card i {
+            font-size: 28px;
+            color: var(--accent);
+        }
+        .coming-soon-card span {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
         }
 
         .overlay {
@@ -419,6 +426,93 @@
             background: #fff;
         }
 
+        /* Product Detail Quick View Modal */
+        .quick-view-modal {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            z-index: 1050;
+            width: 95%; max-width: 480px;
+            max-height: 90vh;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .quick-view-modal.show {
+            display: flex;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        .qv-img-container {
+            width: 100%;
+            height: 250px;
+            background: #f7f7f7;
+            position: relative;
+        }
+        .qv-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .qv-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        .qv-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .qv-price-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .qv-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: #fff9f5;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .qv-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .btn-action-outline {
+            flex: 1;
+            background: var(--white);
+            color: var(--primary);
+            border: 1px solid var(--accent);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .btn-action-outline:hover {
+            background: #fff9f5;
+        }
+
         /* Smooth Animated Success Popup Modal */
         .success-modal {
             position: fixed;
@@ -503,6 +597,34 @@
 
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
     
+    <!-- Product Quick View Modal -->
+    <div class="quick-view-modal" id="quickViewModal">
+        <div class="modal-header" style="padding: 12px 20px;">
+            <h3 style="font-size: 16px;">Product Details & Inquiry</h3>
+            <button class="icon-btn" style="color:white; font-size:18px;" onclick="closeAllModals()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="qv-img-container">
+            <img id="qvImage" src="" alt="Product View" onclick="openLightbox(this.src)">
+        </div>
+        <div class="qv-body">
+            <div class="qv-title" id="qvName"></div>
+            <div class="qv-price-row">
+                <span class="current-price" id="qvPrice" style="font-size: 20px;"></span>
+                <span class="old-price" id="qvOldPrice" style="font-size: 14px;"></span>
+            </div>
+            <div class="qv-desc" id="qvDesc"></div>
+            <div class="qv-actions">
+                <button class="btn-action-outline" onclick="shareCurrentProduct()">
+                    <i class="fa-solid fa-share-nodes"></i> Share Product
+                </button>
+                <button class="btn-action-outline" onclick="askQueryWhatsApp()">
+                    <i class="fa-brands fa-whatsapp" style="color:#28a745;"></i> Ask Any Query
+                </button>
+            </div>
+            <button class="btn-add-cart" id="qvAddToCartBtn" onclick="addCurrentProductToCart()">Add to Cart</button>
+        </div>
+    </div>
+
     <!-- Cart Drawer -->
     <div class="modal-drawer" id="cartModal">
         <div class="modal-header">
@@ -616,6 +738,7 @@
         let cart = [];
         let currentFilter = 'all';
         let pendingWhatsAppUrl = "";
+        let activeQuickViewProduct = null;
 
         // Load saved address on startup
         window.onload = function() {
@@ -658,19 +781,19 @@
                         let sliderButtons = '';
                         
                         if (p.images.length > 1) {
-                            let imgs = p.images.map((img) => `<img src="${img}" alt="${p.name}" onclick="openLightbox('${img}')" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">`).join('');
+                            let imgs = p.images.map((img) => `<img src="${img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'">`).join('');
                             imgHtml = `<div class="slider-track" id="slider-${cat.key}-${p.id}">${imgs}</div>`;
                             sliderButtons = `
                                 <button class="slider-btn prev" onclick="event.stopPropagation(); moveSlide('${cat.key}', ${p.id}, -1)">❮</button>
                                 <button class="slider-btn next" onclick="event.stopPropagation(); moveSlide('${cat.key}', ${p.id}, 1)">❯</button>
                             `;
                         } else {
-                            imgHtml = `<div class="slider-track"><img src="${p.images[0]}" alt="${p.name}" onclick="openLightbox('${p.images[0]}')" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'"></div>`;
+                            imgHtml = `<div class="slider-track"><img src="${p.images[0]}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=SR+Collection'"></div>`;
                         }
 
                         sectionHTML += `
-                            <div class="product-card">
-                                <div class="product-img-box" title="Click to Zoom Image">
+                            <div class="product-card" onclick="openQuickView('${cat.key}', ${p.id})">
+                                <div class="product-img-box">
                                     <span class="badge">COMBO / TRENDING</span>
                                     ${imgHtml}
                                     ${sliderButtons}
@@ -678,37 +801,35 @@
                                 <div class="product-info">
                                     <div>
                                         <div class="product-name">${p.name}</div>
-                                        <button class="more-details-btn" onclick="toggleDetails('${cat.key}', ${p.id})">More Details</button>
-                                        <div class="product-desc" id="desc-${cat.key}-${p.id}" style="display:none;">${p.details}</div>
-                                    </div>
-                                    <div>
                                         <div class="price-row">
                                             <span class="current-price">₹${p.price}</span>
                                             ${p.oldPrice ? `<span class="old-price">₹${p.oldPrice}</span>` : ''}
                                         </div>
-                                        <button class="btn-add-cart" onclick="addToCart('${cat.key}', ${p.id})">Add to Cart</button>
                                     </div>
+                                    <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('${cat.key}', ${p.id})">Add to Cart</button>
                                 </div>
                             </div>
                         `;
                     });
                 } else {
-                    sectionHTML += `<div style="grid-column:1/-1; text-align:center; padding:30px; color:#666; background:white; border-radius:12px;">New trendy items coming soon!</div>`;
+                    // Professional Coming Soon placeholder boxes instead of empty space
+                    sectionHTML += `
+                        <div class="coming-soon-card">
+                            <i class="fa-solid fa-box-open"></i>
+                            <span>Coming Soon</span>
+                            <p style="font-size:11px;">New trendy items are arriving shortly!</p>
+                        </div>
+                        <div class="coming-soon-card">
+                            <i class="fa-solid fa-sparkles"></i>
+                            <span>Coming Soon</span>
+                            <p style="font-size:11px;">Exclusive collections in preparation.</p>
+                        </div>
+                    `;
                 }
 
                 sectionHTML += `</div></div>`;
                 container.innerHTML += sectionHTML;
             });
-        }
-
-        // Independent More Details Toggle per product
-        function toggleDetails(category, id) {
-            const desc = document.getElementById(`desc-${category}-${id}`);
-            if (desc.style.display === 'none') {
-                desc.style.display = 'block';
-            } else {
-                desc.style.display = 'none';
-            }
         }
 
         let slideIndexes = {};
@@ -724,6 +845,51 @@
             
             let track = document.getElementById(`slider-${key}`);
             track.style.transform = `translateX(-${slideIndexes[key] * 100}%)`;
+        }
+
+        // Open Quick View Modal when clicking product card
+        function openQuickView(category, id) {
+            const product = allProductsData[category].find(p => p.id === id);
+            if (!product) return;
+
+            activeQuickViewProduct = product;
+
+            document.getElementById('qvImage').src = product.images[0];
+            document.getElementById('qvName').innerText = product.name;
+            document.getElementById('qvPrice').innerText = `₹${product.price}`;
+            document.getElementById('qvOldPrice').innerText = product.oldPrice ? `₹${product.oldPrice}` : '';
+            document.getElementById('qvDesc').innerText = product.details;
+            
+            document.getElementById('qvAddToCartBtn').onclick = function() {
+                addToCart(category, id);
+                closeAllModals();
+            };
+
+            document.getElementById('overlay').classList.add('show');
+            document.getElementById('quickViewModal').classList.add('show');
+        }
+
+        function shareCurrentProduct() {
+            if (!activeQuickViewProduct) return;
+            const shareText = `Check out this amazing product from SR Collection:\n*${activeQuickViewProduct.name}*\nPrice: ₹${activeQuickViewProduct.price}\n\nVisit our store to order now!`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: activeQuickViewProduct.name,
+                    text: shareText,
+                    url: window.location.href
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(shareText);
+                alert('Product details copied to clipboard!');
+            }
+        }
+
+        function askQueryWhatsApp() {
+            if (!activeQuickViewProduct) return;
+            const queryMsg = `Hi, I have a query regarding this product:\n*${activeQuickViewProduct.name}* (Price: ₹${activeQuickViewProduct.price})\nPlease provide more details.`;
+            const waUrl = `https://wa.me/919883998097?text=${encodeURIComponent(queryMsg)}`;
+            window.open(waUrl, '_blank');
         }
 
         function openLightbox(imgSrc) {
@@ -804,6 +970,7 @@
             document.getElementById('overlay').classList.add('show');
             document.getElementById('cartModal').classList.add('open');
             document.getElementById('addressModal').classList.remove('open');
+            document.getElementById('quickViewModal').classList.remove('show');
         }
 
         function proceedToCheckoutForm() {
@@ -820,6 +987,7 @@
             document.getElementById('cartModal').classList.remove('open');
             document.getElementById('addressModal').classList.remove('open');
             document.getElementById('successModal').classList.remove('show');
+            document.getElementById('quickViewModal').classList.remove('show');
         }
 
         function submitOrder(e) {
