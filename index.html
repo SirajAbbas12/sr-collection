@@ -1,4 +1,4 @@
-hu<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -573,12 +573,14 @@ hu<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- Smooth Animated Success Popup Modal -->
+    <!-- Smooth Animated Success Popup Modal with WhatsApp Action Button -->
     <div class="success-modal" id="successModal">
         <i class="fa-solid fa-circle-check"></i>
         <h3>Order Placed Successfully!</h3>
-        <p>Thank you for shopping with SR Collection. Your order has been confirmed successfully.</p>
-        <button class="btn-primary-custom" onclick="closeAllModals()">Continue Shopping</button>
+        <p>Thank you for shopping with SR Collection. Click below to send your order details securely to WhatsApp.</p>
+        <button class="btn-primary-custom" id="whatsappSendBtn" onclick="sendOrderToWhatsApp()">
+            <i class="fa-brands fa-whatsapp" style="margin-right: 8px; font-size: 18px;"></i> Send Order to WhatsApp
+        </button>
     </div>
 
     <!-- Lightbox Zoom Modal -->
@@ -586,9 +588,6 @@ hu<!DOCTYPE html>
         <button class="lightbox-close">&times;</button>
         <img id="lightboxImg" src="" alt="Zoomed view">
     </div>
-
-    <!-- Hidden iframe for background WhatsApp triggering -->
-    <iframe name="hidden_wa_frame" id="hidden_wa_frame" style="display:none;"></iframe>
 
     <script>
         let allProductsData = {
@@ -616,6 +615,7 @@ hu<!DOCTYPE html>
 
         let cart = [];
         let currentFilter = 'all';
+        let pendingWhatsAppUrl = "";
 
         // Load saved address on startup
         window.onload = function() {
@@ -701,7 +701,7 @@ hu<!DOCTYPE html>
             });
         }
 
-        // Product-wise unique toggle
+        // Independent More Details Toggle per product
         function toggleDetails(category, id) {
             const desc = document.getElementById(`desc-${category}-${id}`);
             if (desc.style.display === 'none') {
@@ -865,9 +865,7 @@ hu<!DOCTYPE html>
             const whatsappNumber = "919883998097"; 
             const encodedMsg = encodeURIComponent(message);
             
-            // Background WhatsApp dispatch via iframe
-            const iframe = document.getElementById('hidden_wa_frame');
-            iframe.src = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+            pendingWhatsAppUrl = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
 
             // Close address modal and show smooth animated success popup
             document.getElementById('addressModal').classList.remove('open');
@@ -876,6 +874,13 @@ hu<!DOCTYPE html>
 
             cart = [];
             updateCartUI();
+        }
+
+        function sendOrderToWhatsApp() {
+            if (pendingWhatsAppUrl) {
+                window.open(pendingWhatsAppUrl, '_blank');
+            }
+            closeAllModals();
         }
 
         renderProducts();
