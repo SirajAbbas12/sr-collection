@@ -617,6 +617,26 @@
             color: white; font-size: 32px;
             background: none; border: none; cursor: pointer;
         }
+.product-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.15);
+    border-color: rgba(255, 215, 0, 0.5);
+}
+.add-to-cart-btn {
+    transition: transform 0.1s ease, background-color 0.2s ease;
+}
+.add-to-cart-btn:active {
+    transform: scale(0.92);
+}
+
     </style>
 </head>
 <body>
