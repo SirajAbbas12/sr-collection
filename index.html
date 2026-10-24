@@ -1180,6 +1180,10 @@
         }
 
         function addToCart(category, id) {
+    // Add animation trigger
+    const btn = event.target;
+    btn.classList.add("added");
+    setTimeout(() => btn.classList.remove("added"), 400);
             const product = allProductsData[category].find(p => p.id === id);
             if (!product) return;
 
