@@ -34,7 +34,7 @@
         }
 
         header {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(12px);
             padding: 15px 20px;
             display: flex;
@@ -539,33 +539,35 @@
             margin-bottom: 20px;
         }
 
+        /* Polished Luxury Review Section */
         .reviews-section {
-            border-top: 1px solid #e6dcc8;
+            border-top: 2px solid #f0e6d2;
             padding-top: 20px;
             margin-top: 20px;
         }
         .review-card {
-            background: #fcf9f2;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 12px;
-            border: 1px solid #f0e6d2;
+            background: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            border: 1px solid #e6dcc8;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
         .review-author-row {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
+            gap: 12px;
+            margin-bottom: 8px;
         }
         .review-author-img {
-            width: 28px; height: 28px;
+            width: 36px; height: 36px;
             border-radius: 50%;
             object-fit: cover;
-            border: 1px solid var(--accent);
+            border: 2px solid var(--accent);
         }
-        .review-author-name { font-weight: 600; color: var(--primary); }
-        .review-stars { color: #d4af37; font-size: 12px; }
+        .review-author-name { font-weight: 600; color: var(--primary); font-size: 14px; }
+        .review-stars { color: #d4af37; font-size: 13px; }
 
         .success-modal {
             position: fixed;
@@ -680,14 +682,15 @@
                 
                 <button class="btn-primary-custom" id="pdpAddToCartBtn" style="margin-bottom: 20px;">Add to Cart</button>
 
+                <!-- Polished Review Section -->
                 <div class="reviews-section">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                        <span style="font-weight:700; color:var(--primary);">Customer Reviews (<span id="pdpReviewCount">0</span>)</span>
-                        <button style="background:none; border:none; color:var(--primary); font-weight:600; cursor:pointer; font-size:12px;" onclick="openAddReviewBox()">+ Write Review</button>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                        <span style="font-weight:700; color:var(--primary); font-size:16px;">Customer Reviews (<span id="pdpReviewCount">0</span>)</span>
+                        <button style="background:var(--primary); color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:600; cursor:pointer; font-size:12px;" onclick="openAddReviewBox()">+ Write Review</button>
                     </div>
                     
-                    <div id="addReviewFormContainer" style="display:none; background:#fff9f5; padding:12px; border-radius:8px; margin-bottom:12px; border:1px solid var(--accent);">
-                        <div class="form-group" style="margin-bottom:8px;">
+                    <div id="addReviewFormContainer" style="display:none; background:#fff9f5; padding:16px; border-radius:12px; margin-bottom:15px; border:1px solid var(--accent);">
+                        <div class="form-group" style="margin-bottom:10px;">
                             <label>Rating</label>
                             <select id="newReviewRating">
                                 <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
@@ -695,9 +698,9 @@
                                 <option value="3">⭐⭐⭐ (3/5)</option>
                             </select>
                         </div>
-                        <div class="form-group" style="margin-bottom:8px;">
+                        <div class="form-group" style="margin-bottom:12px;">
                             <label>Your Review</label>
-                            <textarea id="newReviewText" rows="2" placeholder="Write your experience..."></textarea>
+                            <textarea id="newReviewText" rows="3" placeholder="Write your experience..."></textarea>
                         </div>
                         <button class="btn-primary-custom" onclick="submitProductReview()" style="padding:10px; font-size:13px;">Post Review</button>
                     </div>
@@ -1059,7 +1062,7 @@
             document.getElementById('addReviewFormContainer').style.display = 'none';
 
             if (product.reviews.length === 0) {
-                container.innerHTML = '<p style="font-size:12px; color:var(--text-muted); text-align:center; padding:10px;">No reviews yet. Be the first to review!</p>';
+                container.innerHTML = '<p style="font-size:13px; color:var(--text-muted); text-align:center; padding:15px;">No reviews yet. Be the first to review!</p>';
                 return;
             }
 
@@ -1069,13 +1072,13 @@
                 container.innerHTML += `
                     <div class="review-card">
                         <div class="review-author-row">
-                            <img src="${rev.photo || 'https://via.placeholder.com/30?text=👤'}" class="review-author-img" onerror="this.src='https://via.placeholder.com/30?text=👤'">
+                            <img src="${rev.photo || 'https://via.placeholder.com/35?text=👤'}" class="review-author-img" onerror="this.src='https://via.placeholder.com/35?text=👤'">
                             <div>
                                 <span class="review-author-name">${rev.name}</span>
                                 <div class="review-stars">${stars}</div>
                             </div>
                         </div>
-                        <p style="color:var(--text-dark); margin-top:4px;">${rev.text}</p>
+                        <p style="color:var(--text-dark); margin-top:6px; line-height:1.5;">${rev.text}</p>
                     </div>
                 `;
             });
@@ -1243,7 +1246,7 @@
             const name = document.getElementById('custName').value;
             const phone = document.getElementById('custPhone').value;
             const house = document.getElementById('custHouse').value;
-            const area = document.getElementById('custArea++' || 'custArea').value;
+            const area = document.getElementById('custArea').value;
             const pincode = document.getElementById('custPincode').value;
             const city = document.getElementById('custCity').value;
             const state = document.getElementById('custState').value;
