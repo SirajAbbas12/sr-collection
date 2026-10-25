@@ -1218,7 +1218,7 @@
                 cart.forEach((item, index) => {
                     totalPrice += item.price * item.qty;
                     cartBody.innerHTML += `
-                        <div class="cart-item">
+                        <div class="cart-item" style="display:flex; align-items:center; gap:10px;"><img src="${item.image || item.img || ''}" style="width:50px; height:50px; object-fit:cover; border-radius:6px;">
                             <img src="${item.image.startsWith('http') ? item.image : 'images/' + item.image}" alt="${item.name}">
                             <div class="cart-item-details">
                                 <div class="cart-item-title">${item.name}</div>
